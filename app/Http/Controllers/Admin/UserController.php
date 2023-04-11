@@ -40,8 +40,12 @@ class UserController extends Controller
         $users = $users->when(
             $request->q,
             function ($query, $q) {
+                $user = Auth::user();
                 $query = $query->where('name', 'LIKE', '%' . $q . '%')
                                ->orWhere('email', 'LIKE', '%' . $q . '%');
+                if($user['name'] != 'Super Admin') {
+                    $query =  $query->where('name','!=','Super Admin')->latest();
+                }            
             }
         )->paginate(8);
         $fields = (new User)->getFields();

@@ -28,22 +28,26 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         $roles = (new Role)->newQuery();
+        $roles->latest();
         $user = Auth::user();
-        
-        $allPermissions = Permission::select('id','name')->get();
-        if($user['name'] =='Super Admin') {
-            $roles->latest();
-        } else {
-            
+        $allPermissions = Permission::select('id', 'name')->get();
+
+        if ($user['name'] != 'Super Admin') {
+            $roles->where('name', '!=', 'super-admin')->latest();
         }
+
         $roles = $roles->when(
-            $request->q,function($query,$q)
-            {
-                $query->where('name','LIKE','%'. $q .'%')
-                      ->orWhere('guard_name','LIKE','%'. $q .'%');
+            $request->q,
+            function ($query, $q) {
+                $user = Auth::user();
+                $query = $query->where('name', 'LIKE', '%' . $q . '%')
+                    ->orWhere('guard_name', 'LIKE', '%' . $q . '%');
+                if ($user['name'] != 'Super Admin') {
+                    $query =  $query->where('name', '!=', 'super-admin')->latest();
+                }
             }
         )->paginate(8);
-        
+
         // permissoes dos papeis
         $roleHasPermissions = DB::table('role_has_permissions')->get();
         $fields = (new Role)->getFields();
@@ -74,7 +78,7 @@ class RoleController extends Controller
         $role = $role->create($request->all());
         $permissions = $request->permissions ?? [];
         $role->givePermissionTo($permissions);
-        return redirect()->route('role.index',['page' => $request->input('page')])->with('message', 'Created Successfully');
+        return redirect()->route('role.index', ['page' => $request->input('page')])->with('message', 'Created Successfully');
     }
 
     /**
@@ -86,22 +90,22 @@ class RoleController extends Controller
     public function update(Request $request, Role $role)
     {
         $request['guard_name'] = 'web';
-        $request->validate( $role->rules() );
+        $request->validate($role->rules());
         $role->update($request->all());
         $permissions = $request->permissions ?? [];
         $role->syncPermissions($permissions);
-        return redirect()->route('role.index',['page' => $request->input('page')])->with('message', 'Updated Successfully');
+        return redirect()->route('role.index', ['page' => $request->input('page')])->with('message', 'Updated Successfully');
     }
 
-     /**
+    /**
      * Remove the specified resource from storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Role  $role
      */
-    public function destroy(Request $request,Role $role)
+    public function destroy(Request $request, Role $role)
     {
         $role->delete();
-        return redirect()->route('role.index',['page' => $request->input('page')])->with('message', 'Deleted Successfully');
+        return redirect()->route('role.index', ['page' => $request->input('page')])->with('message', 'Deleted Successfully');
     }
 }
