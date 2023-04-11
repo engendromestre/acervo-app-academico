@@ -29,9 +29,13 @@ class RoleController extends Controller
     {
         $roles = (new Role)->newQuery();
         $user = Auth::user();
-        $roles->latest();
-        $allPermissions = Permission::select('id','name')->get();
         
+        $allPermissions = Permission::select('id','name')->get();
+        if($user['name'] =='Super Admin') {
+            $roles->latest();
+        } else {
+            
+        }
         $roles = $roles->when(
             $request->q,function($query,$q)
             {

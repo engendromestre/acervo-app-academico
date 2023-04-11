@@ -31,18 +31,17 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $users = (new User)->newQuery();
+        $users->latest();
         $user = Auth::user();
-        if($user['name'] =='Super Admin') {
-            $users->latest();
-        } else {
+        if($user['name'] != 'Super Admin') {
             $users->where('name','!=','Super Admin')->latest();
         }
         
         $users = $users->when(
             $request->q,
             function ($query, $q) {
-                $query->where('name', 'LIKE', '%' . $q . '%')
-                    ->orWhere('email', 'LIKE', '%' . $q . '%');
+                $query = $query->where('name', 'LIKE', '%' . $q . '%')
+                               ->orWhere('email', 'LIKE', '%' . $q . '%');
             }
         )->paginate(8);
         $fields = (new User)->getFields();
