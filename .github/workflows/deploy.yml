@@ -28,5 +28,4 @@ jobs:
           script: | 
             cd /home/prbo/web/galileu.engendrando.online/public_html
             chmod +x ./deploy.sh
-            export COMPOSER_ALLOW_SUPERUSER=1
             ./deploy.sh
