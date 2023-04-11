@@ -13,6 +13,9 @@ git pull --rebase --autostash origin production
 # Install composer dependencies
 composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 
+# Generate Key
+php artisan key:generate
+
 # Clear the old cache
 php artisan clear-compiled
 

@@ -27,5 +27,5 @@ jobs:
           key: ${{ secrets.SSHKEY }}
           script: | 
             cd /home/prbo/web/galileu.engendrando.online/public_html
-            chmod +x ./deploy.sh
-            ./deploy.sh
+            chmod +x ./deploy.sh && ./deploy.sh
+            
