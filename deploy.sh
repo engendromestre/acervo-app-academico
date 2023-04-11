@@ -28,6 +28,9 @@ npm run build
 # Run database migrations
 php artisan migrate --force
 
+# Create Symbolic link
+php artisan storage:link
+
 # Exit maintenance mode
 php artisan up
 
