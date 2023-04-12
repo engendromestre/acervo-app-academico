@@ -26,7 +26,7 @@ export const store = createStore({
       state.item = item ? item : {}  
     },
     setQuery(state,q) {
-      state.q = q ? q : {}  
+      state.q = q ? q : '' 
     }
   },
   getters: {
