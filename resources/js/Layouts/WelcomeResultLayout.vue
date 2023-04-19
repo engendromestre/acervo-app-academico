@@ -63,7 +63,10 @@ const count = ref(1);
                                 </a>
 
                                 <a class="text-sm font-medium text-gray-900 dark:text-white">
-                                    &nbsp;{{ obj.subtitle }} - {{ obj.publicationYear }}
+                                    <template v-if="obj.subtitle">
+                                        &nbsp;{{ obj.subtitle }}
+                                    </template>
+                                     - {{ obj.publicationYear }}
                                 </a>
                                 <p class="mt-3 text-xs text-gray-500 dark:text-gray-400 text-ellipsis overflow-hidden">
                                     {{ obj.collection.name }} -
