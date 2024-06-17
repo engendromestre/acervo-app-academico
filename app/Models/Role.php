@@ -33,7 +33,7 @@ class Role extends OriginalRole
     {
         $unique = isset($this->id) ? "unique:roles,name,{$this->id}" : "unique:roles,name";
         return [
-            'name' => ["required",$unique,"max:50"],
+            'name' => ["required",$unique,"max:50", "in:admin,writer"],
             'guard_name' => ['required', 'max:25']
         ];
     }

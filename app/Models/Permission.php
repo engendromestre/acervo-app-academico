@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Spatie\Permission\Models\Permission as OriginalPermission;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Permission extends OriginalPermission
 {
+    use HasFactory;
+
     protected $fillable = [
         'name',
         'guard_name',

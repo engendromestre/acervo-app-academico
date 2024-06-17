@@ -72,6 +72,19 @@ it('can update user', function () {
     $this->assertDatabaseHas('users', ['name' => 'Updated Name']);
 });
 
+it('can delete a user', function () {
+    $this->actingAs($this->superAdmin);
+
+    $user = User::factory()->create();
+
+    $response = $this->delete(route('user.destroy', $user));
+
+    $response->assertRedirect(route('user.index'));
+    $this->assertDatabaseMissing('users', [
+        'id' => $user->id,
+    ]);
+});
+
 
 it('can list users with filters and pagination', function () {
     // Crie alguns usuários fictícios no banco de dados
@@ -150,14 +163,13 @@ it('requires name to have min length', function () {
     ]);
     $response->assertStatus(302);
     $response->assertSessionHasErrors('name');
-    //dd($response->getMessage());
 });
 
 it('requires name to have max length', function () {
     $response = $this->actingAs($this->adminUser)->get(route('user.index'));
 
     $response = $this->post(route('user.store'), [
-        'name' => str_repeat('t',51),
+        'name' => str_repeat('t', 51),
         'email' => 'test@example.com',
         'role' => 'admin',
     ]);
