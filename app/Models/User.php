@@ -66,7 +66,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'name' => ["required",$uniqueName,"min:5","max:50"],
             'email' => ["required","email",$uniqueEmail,"min:10","max:150"],
-            'role' => ["required"]
+            'role' => ["required", "in:admin,writer"]
         ];
     }
 }
