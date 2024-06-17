@@ -18,3 +18,4 @@ test('test fillable attribute', function () {
     $fillable = ['title', 'subtitle', 'collection_id', 'course_id', 'author', 'advisor','file','publicationYear'];
     expect($fillable)->toBe($this->document->getFillable());
 });
+
