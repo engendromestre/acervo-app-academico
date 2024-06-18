@@ -1,7 +1,7 @@
 # Acervo App
 
 <p align="center" style="">
-<img class="hidden h-16 w-auto lg:block" src="public/doc/16835.jpg" alt="Faculdade Galileu" width="60%">
+<img class="hidden h-16 w-auto lg:block" src="public/doc/16835.png" alt="Faculdade Galileu" width="60%">
 </p>
 <p align="center">
 <img src="https://img.shields.io/badge/license-MIT-green">
