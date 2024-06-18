@@ -8,10 +8,10 @@ import GoogleButton from '@/Components/GoogleButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 
-defineProps({
+const props = defineProps({
     canResetPassword: Boolean,
     status: String,
-    lang: Object
+    lang: Object,
 });
 
 const form = useForm({
@@ -37,7 +37,7 @@ const submit = () => {
             {{ status }}
         </div>
 
-        <form @submit.prevent="submit">
+        <form @submit.prevent="submit" novalidate>
             <div>
                 <InputLabel for="email" :value="translate('Email')" />
                 <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus
@@ -90,7 +90,7 @@ const submit = () => {
                 <div>
                 </div>
                 <div>
-                    <a href="#"
+                    <a :href="route('social.redirect', { provider: 'google' })"
                         class="w-full flex items-center justify-center px-8 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
                         <img class="h-6 w-6" src="https://www.svgrepo.com/show/506498/google.svg" alt="">
                     </a>

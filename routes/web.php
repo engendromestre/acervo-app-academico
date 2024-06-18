@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\ProviderController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -19,11 +20,22 @@ use App\Http\Controllers\WelcomeController;
 |
 */
 
+Route::get(
+    '/auth/{provider}/redirect',
+    [ProviderController::class, 'redirect']
+)
+    ->name('social.redirect');
+
+Route::get(
+    '/auth/{provider}/callback',
+    [ProviderController::class, 'callback']
+)->name('social.callback');
+
 Route::get('/', function () {
     $documents = new Document;
     $fieldVisitDocument = $documents->getFieldsWelcome();
-    $collections = Collection::select('id','name')->get();
-    $courses = Course::select('id','name')->get();
+    $collections = Collection::select('id', 'name')->get();
+    $courses = Course::select('id', 'name')->get();
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -39,7 +51,7 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::group([
     'namespace' => 'App\Http\Controllers\Admin',
@@ -54,6 +66,6 @@ Route::group([
     Route::resource('document', 'DocumentController');
 });
 
-Route::post('/{id}',[WelcomeController::class,'getVisit'])->name('welcome.getVisit');
-Route::post('/',[WelcomeController::class,'list'])->name('welcome');
-Route::patch('/',[WelcomeController::class,'visitsIncrement'])->name('welcome.visitsIncrement');
+Route::post('/{id}', [WelcomeController::class, 'getVisit'])->name('welcome.getVisit');
+Route::post('/', [WelcomeController::class, 'list'])->name('welcome');
+Route::patch('/', [WelcomeController::class, 'visitsIncrement'])->name('welcome.visitsIncrement');

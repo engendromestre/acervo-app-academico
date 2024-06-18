@@ -19,10 +19,13 @@ const props = defineProps({
 
 const store = useStore();
 
-if(store.getters.getAction == 'update') {
+if (store.getters.getAction == 'update') {
     const currentModel = props.model.find(obj => obj.user == store.getters.getItem.id);
-    store.state.item.role = currentModel.role;
-    props.form.role = store.state.item.role;
+    if (currentModel) {
+        store.state.item.role = currentModel.role;
+        props.form.role = store.state.item.role;
+    }
+
 } else {
     store.state.item.role = '';
 }
@@ -37,9 +40,8 @@ watch([r], ([role]) => {
         <InputLabel :value="translate('Role')"></InputLabel>
         <div class="grid grid-cols-1 gap-1">
             <template v-for="obj, idx in roles" :key="idx">
-                <div class="flex items-center" v-if="obj.name!='super-admin'">
-                    <Radio class="block w-4 h-4" :value="obj.name" name="role" 
-                        v-model:checked="r"></Radio>
+                <div class="flex items-center" v-if="obj.name != 'super-admin'">
+                    <Radio class="block w-4 h-4" :value="obj.name" name="role" v-model:checked="r"></Radio>
                     <InputLabel class="ml-2 text-sm font-medium" for="field" :value="obj.name"></InputLabel>
                 </div>
             </template>
