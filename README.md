@@ -1,8 +1,7 @@
 # Acervo App
 
-<p align="center" style="background: rgb(88,156,78);
-background: linear-gradient(90deg, rgba(88,156,78,1) 9%, rgba(255,102,0,1) 53%, rgba(32,91,124,1) 91%);">
-<img class="hidden h-16 w-auto lg:block" src="https://faculdadegalileu.com.br/content/loans4/images/fatec_logo.png?color=white&amp;shade=500" alt="Faculdade Galileu" width="60%">
+<p align="center" style="">
+<img class="hidden h-16 w-auto lg:block" src="public/doc/16835.jpg" alt="Faculdade Galileu" width="60%">
 </p>
 <p align="center">
 <img src="https://img.shields.io/badge/license-MIT-green">
