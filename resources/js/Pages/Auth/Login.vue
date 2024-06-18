@@ -8,10 +8,10 @@ import GoogleButton from '@/Components/GoogleButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 
-defineProps({
+const props = defineProps({
     canResetPassword: Boolean,
     status: String,
-    lang: Object
+    lang: Object,
 });
 
 const form = useForm({

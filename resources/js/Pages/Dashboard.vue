@@ -9,8 +9,6 @@ const props = defineProps({
     lang: Object
 });
 
-
-
 const breadcrumbs = computed(() => {
     return [ { label: 'Dashboard', href: 'dashboard' } ];
 });
