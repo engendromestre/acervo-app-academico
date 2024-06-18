@@ -1,4 +1,4 @@
-# Acervo Galileu
+# Acervo App
 
 <p align="center" style="background: rgb(88,156,78);
 background: linear-gradient(90deg, rgba(88,156,78,1) 9%, rgba(255,102,0,1) 53%, rgba(32,91,124,1) 91%);">
@@ -10,8 +10,8 @@ background: linear-gradient(90deg, rgba(88,156,78,1) 9%, rgba(255,102,0,1) 53%, 
 <img src="https://img.shields.io/badge/release date-Abr/2023-yellow">
 </p>
 <p align="center">
-<img src="https://img.shields.io/badge/PHP 8.1.10-777BB4?style=for-the-badge&logo=php&logoColor=white">
-<img src="https://img.shields.io/badge/Laravel 9.31.0-FF2D20?style=for-the-badge&logo=laravel&logoColor=white">
+<img src="https://img.shields.io/badge/PHP 8.1.29-777BB4?style=for-the-badge&logo=php&logoColor=white">
+<img src="https://img.shields.io/badge/Laravel 9.52.16-FF2D20?style=for-the-badge&logo=laravel&logoColor=white">
 <img src="https://img.shields.io/badge/MySQL 8.0-316192?style=for-the-badge&logo=mysql&logoColor=white">
 <img src="https://img.shields.io/badge/Vue.js v.3-35495E?style=for-the-badge&logo=vue.js&logoColor=4FC08D">
 <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white">
@@ -59,22 +59,22 @@ cp .env.example .env
 ```
 
 ```bash
-APP_NAME="Acervo Galileu"
+APP_NAME="Acervo App"
 APP_KEY=
 DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
-DB_DATABASE=acervo-galileu-app
+DB_DATABASE=acervo-app
 DB_USERNAME=sail
 DB_PASSWORD=password
 
 MAIL_MAILER=smtp
 MAIL_HOST=smtp.gmail.com
 MAIL_PORT=587
-MAIL_USERNAME=engendro.mestre@gmail.com
-MAIL_PASSWORD=nmbyokrbzqxhhybc
+MAIL_USERNAME=
+MAIL_PASSWORD=
 MAIL_ENCRYPTION=TLS
-MAIL_FROM_ADDRESS=engendro.mestre@gmail.com
+MAIL_FROM_ADDRESS=
 MAIL_FROM_NAME="${APP_NAME}"
 ```
 
@@ -90,14 +90,20 @@ sail up -d
 sail artisan key:generate 
 ```
 
-7. Migrar o banco de dados com as sementes
+7. Migrar o banco de dados com as seeds
 
 ```bash
 sail artisan migrate --seed
 ```
 
+8. Manter a compilação dos assets atualizadas durante o desenvolvimento
+
+```bash
+npm run dev
+```
+
 ### Ambiente de Produção 
-8. Instalar depedências de produção. Caso decida hospedar em um servidor compartilhado que não possua acesso root, gere as dependências do projeto
+9. Instalar depedências de produção. Caso decida hospedar em um servidor compartilhado que não possua acesso root, gere as dependências do projeto
 
 ```bash
 composer update
@@ -106,42 +112,10 @@ npm install --production
 
 Obs.: verifique a engine package.json para ver as versões compatíveis.
 
-9. Compilar o aplicativo
+10. Compilar o aplicativo
 
 ```bash
 npm build
 ```
 
 Obs.: Neste ponto está pronto para subir para a hospedagem, caso não possua acesso root do servidor.
-
-## Documentação da API
-
-#### Autenticação
-
-```http
-  POST /login
-```
-
-| Parâmetro  | Tipo     | Descrição        |
-| :--------- | :------- | :--------------- |
-| `email`    | `string` | **Obrigatório**. |
-| `password` | `string` | **Obrigatório**. |
-| `remember` | `string` | **Opcional**.    |
-
-#### Exibe o menu
-
-```http
-  GET /dashboard
-```
-
-#### Lista os registros
-
-```http
-  GET admin/{entity}
-```
-
-#### Exibe/modifica um registro
-
-```http
-  GET admin/{entity}/{id}
-```
