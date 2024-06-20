@@ -34,7 +34,7 @@ const submit = () => {
         <Head :title="translate('Log in')" />
 
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-            {{ status }}
+            {{  translate(status) }}
         </div>
 
         <form @submit.prevent="submit" novalidate>
