@@ -83,7 +83,7 @@ MAIL_FROM_NAME="${APP_NAME}"
 sail up -d 
 ```
 
-6. Gerar a chage APP_KEY
+6. Gerar a chave APP_KEY
 
 ```bash
 sail artisan key:generate 
@@ -95,14 +95,20 @@ sail artisan key:generate
 sail artisan migrate --seed
 ```
 
-8. Manter a compilação dos assets atualizadas durante o desenvolvimento
+8. Criar link simbólico
+
+```bash
+php artisan storage:link
+```
+
+9. Manter a compilação dos assets atualizadas durante o desenvolvimento
 
 ```bash
 npm run dev
 ```
 
 ### Ambiente de Produção 
-9. Instalar depedências de produção. Caso decida hospedar em um servidor compartilhado que não possua acesso root, gere as dependências do projeto
+1. Instalar depedências de produção. Caso decida hospedar em um servidor compartilhado que não possua acesso root, gere as dependências do projeto
 
 ```bash
 composer update
@@ -111,7 +117,7 @@ npm install --production
 
 Obs.: verifique a engine package.json para ver as versões compatíveis.
 
-10. Compilar o aplicativo
+2. Compilar o aplicativo
 
 ```bash
 npm build
