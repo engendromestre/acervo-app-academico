@@ -21,7 +21,7 @@ test('test if use traits', function() {
 });
 
 test('test fillable attribute', function () {
-    $fillable = ['name', 'email', 'password'];
+    $fillable = ['name', 'email', 'password','provider','provider_id','provider_token'];
     expect($fillable)->toBe($this->user->getFillable());
 });
 
