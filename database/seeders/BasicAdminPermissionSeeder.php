@@ -37,6 +37,14 @@ class BasicAdminPermissionSeeder extends Seeder
             'collection create',
             'collection edit',
             'collection delete',
+            'course list',
+            'course create',
+            'course edit',
+            'course delete',
+            'document list',
+            'document create',
+            'document edit',
+            'document delete'
         ];
 
         foreach ($permissions as $permission) {
