@@ -10,12 +10,11 @@
             </span>
             <ul class="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
                 <li>
-                    <a target="_blank" href="https://faculdadegalileu.com.br/" class="mr-4 hover:underline md:mr-6 ">A
-                        Galileu</a>
+                    <a target="_blank" href="#" class="mr-4 hover:underline md:mr-6 ">Acervo Acadêmico</a>
                 </li>
                 <li>
                     <a target="_blank"
-                        href="https://www.google.com/maps/place/Faculdade+Galileu/@-22.9125093,-48.4627457,17z/data=!3m1!4b1!4m5!3m4!1s0x94c6df22cfc7cea9:0x6d6c8820627a3492!8m2!3d-22.9125143!4d-48.4605517"
+                        href="#"
                         class="mr-4 hover:underline md:mr-6">Endereço</a>
                 </li>
             </ul>

@@ -93,7 +93,7 @@ const lastYear = ref(new Date().getFullYear());
 </script>
 <template>
 
-  <Head title="Acervo Galileu" />
+  <Head title="Acervo App" />
   <WelcomeLayout :lang="lang" :canLogin="canLogin">
     <div class="py-12 sm:py-8">
       <div class="mx-auto max-w-7xl px-4 mb-3">

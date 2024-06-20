@@ -16,14 +16,14 @@ const props = defineProps({
             <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
                 <div class="relative flex h-16 items-center justify-between">
                     <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                        <a href="https://faculdadegalileu.com.br" target="_blank">
+                        <a href="#" target="_blank">
                             <div class="flex flex-shrink-0 items-center">
                                 <img class="block h-16 w-auto lg:hidden"
-                                    src="https://faculdadegalileu.com.br/content/loans4/images/fatec_logo.png?color=white&shade=500"
-                                    alt="Faculdade Galileu" />
+                                    src="@/Assets/images/logo.png"
+                                    alt="Acervo Acadêmico" />
                                 <img class="hidden h-16 w-auto lg:block"
-                                    src="https://faculdadegalileu.com.br/content/loans4/images/fatec_logo.png?color=white&shade=500"
-                                    alt="Faculdade Galileu" />
+                                    src="@/Assets/images/logo.png"
+                                    alt="Acervo Acadêmico" />
                             </div>
                         </a>
                     </div>

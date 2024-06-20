@@ -26,6 +26,6 @@ jobs:
           port: ${{ secrets.PORT }}
           key: ${{ secrets.SSHKEY }}
           script: | 
-            cd /home/prbo/web/galileu.engendrando.online/public_html
+            cd /home/prbo/web/acervoacademico.engendrando.online/public_html
             chmod +x ./deploy.sh && ./deploy.sh
             
