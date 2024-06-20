@@ -64,6 +64,7 @@ class DocumentController extends Controller
             'fields' => $fields,
             'data' => $documents,
             'can' => [
+                'list' => Auth::user()->can('document list'),
                 'create' => Auth::user()->can('document create'),
                 'edit' => Auth::user()->can('document edit'),
                 'delete' => Auth::user()->can('document delete'),

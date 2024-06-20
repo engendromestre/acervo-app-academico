@@ -38,6 +38,7 @@ class CollectionController extends Controller
             'fields' => $fields,
             'data' => $collections,
             'can' => [
+                'list' => Auth::user()->can('collection list'),
                 'create' => Auth::user()->can('collection create'),
                 'edit' => Auth::user()->can('collection edit'),
                 'delete' => Auth::user()->can('collection delete'),

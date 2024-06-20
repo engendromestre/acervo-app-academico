@@ -38,6 +38,7 @@ class CourseController extends Controller
             'fields' => $fields,
             'data' => $courses,
             'can' => [
+                'list' => Auth::user()->can('course list'),
                 'create' => Auth::user()->can('course create'),
                 'edit' => Auth::user()->can('course edit'),
                 'delete' => Auth::user()->can('course delete'),
