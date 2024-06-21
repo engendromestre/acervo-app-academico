@@ -53,10 +53,10 @@ class BasicAdminPermissionSeeder extends Seeder
 
         // create roles and assign existing permissions
         $role1 = Role::create(['name' => 'writer']);
-        $role1->givePermissionTo('post list');
-        $role1->givePermissionTo('post create');
-        $role1->givePermissionTo('post edit');
-        $role1->givePermissionTo('post delete');
+        $role1->givePermissionTo('document list');
+        $role1->givePermissionTo('document create');
+        $role1->givePermissionTo('document edit');
+        $role1->givePermissionTo('document delete');
 
         $role2 = Role::create(['name' => 'admin']);
         foreach ($permissions as $permission) {

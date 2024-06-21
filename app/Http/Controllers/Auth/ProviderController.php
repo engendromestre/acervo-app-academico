@@ -44,9 +44,7 @@ class ProviderController extends Controller
                 $user->markEmailAsVerified();
             }
 
-
-            $permissions = $user->permissions;
-            if ($user->hasAnyPermission($permissions)) {
+            if ($user->hasAnyRole(['writer', 'admin'])) {
                 // O usuário tem pelo menos uma das permissões
                 Auth::login($user);
                 return redirect()->route(RouteServiceProvider::HOME);
