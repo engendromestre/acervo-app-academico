@@ -91,7 +91,7 @@ it('can list users with filters and pagination', function () {
     User::factory()->count(10)->create();
 
     // Atue como um usuário autenticado (no caso, superadmin)
-    $this->actingAs($this->normalUser);
+    $this->actingAs($this->adminUser);
 
     // Acesse a rota que retorna a listagem de usuários com filtros e paginação
     $response = $this->get(route('user.index'));
