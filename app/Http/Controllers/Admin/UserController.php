@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NotifySocialiteUser;
 
 class UserController extends Controller
 {
@@ -102,6 +104,7 @@ class UserController extends Controller
         $user->update($request->all());
         $role = $request->role ?? [];
         $user->syncRoles($role);
+        Mail::to($user->email)->send(new NotifySocialiteUser($user));
         return redirect()->route('user.index', ['page' => $request->input('page')])->with('message', 'Updated Successfully');
     }
 

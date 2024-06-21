@@ -8,6 +8,7 @@ use App\Models\Collection;
 use App\Models\Course;
 use App\Models\Document;
 use App\Http\Controllers\WelcomeController;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,3 +70,9 @@ Route::group([
 Route::post('/{id}', [WelcomeController::class, 'getVisit'])->name('welcome.getVisit');
 Route::post('/', [WelcomeController::class, 'list'])->name('welcome');
 Route::patch('/', [WelcomeController::class, 'visitsIncrement'])->name('welcome.visitsIncrement');
+
+
+// Route::get('/sendmailtest', function() {
+//     $user = User::where('email', 'superadmin@engendrando.com')->first();
+//     return new \App\Mail\NotifySocialiteUser($user);
+// });
