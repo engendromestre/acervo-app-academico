@@ -35,6 +35,11 @@ jobs:
     - name: Generate Laravel application key
       run: php artisan key:generate
 
+    - name: Install npm and Node.js
+      run: |
+        curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+        sudo apt-get install -y nodejs
+
     - name: Install npm dependencies and build assets
       run: |
         npm install --production
