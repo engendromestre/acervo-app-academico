@@ -39,6 +39,9 @@ jobs:
       run: |
         curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
         sudo apt-get install -y nodejs
+    
+    - name: Install Vite
+      run: npm install vite@^3.0.0
 
     - name: Install npm dependencies and build assets
       run: |
