@@ -1,31 +1,33 @@
-name: Deploy
+name: Laravel CI
 
-# Trigger the workflow on push and 
-# pull request events on the production branch
 on:
   push:
-    branches:
-      - production
+    branches: [ main ]
   pull_request:
-    branches:
-      - production
-      
-# Authenticate to the the server via ssh 
-# and run our deployment script 
-# chmod test
+    branches: [ main ]
+
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - name: Deploy to server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          port: ${{ secrets.PORT }}
-          key: ${{ secrets.SSHKEY }}
-          script: | 
-            cd /home/prbo/web/acervoacademico.engendrando.online/public_html
-            chmod +x ./deploy.sh && ./deploy.sh
-            
+    - uses: actions/checkout@v2
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1.29'
+
+    - name: Install Composer dependencies
+      run: composer install --no-ansi --no-interaction --no-progress --no-scripts --optimize-autoloader
+
+    - name: Generate Laravel application key
+      run: php artisan key:generate
+
+    - name: Install npm dependencies and build assets
+      run: |
+        npm install
+        npm run prod
+
+    - name: Run Pest tests
+      run: ./vendor/bin/pest
