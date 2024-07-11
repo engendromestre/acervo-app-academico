@@ -37,8 +37,8 @@ jobs:
 
     - name: Install npm dependencies and build assets
       run: |
-        npm install
-        npm run prod
+        npm install --production
+        npm build
 
     - name: Run Pest tests
       run: ./vendor/bin/pest
