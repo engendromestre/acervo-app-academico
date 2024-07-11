@@ -124,3 +124,12 @@ npm build
 ```
 
 Obs.: Neste ponto está pronto para subir para a hospedagem, caso não possua acesso root do servidor.
+
+## Links do Projeto
+<p>
+<a href="https://miro.com/app/board/uXjVKAdsdKI=/?share_link_id=549149955540" target="_blank" />Lean Canvas
+</p>
+
+<p>
+<a href="https://miro.com/app/board/uXjVK_jLHG0=/?share_link_id=263872928237" target="_blank" />Diagrama C4
+</p>
