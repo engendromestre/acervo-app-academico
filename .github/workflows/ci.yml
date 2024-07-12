@@ -1,4 +1,4 @@
-name: Laravel CI
+name: CI/CD Pipeline
 
 on:
   push:
@@ -9,33 +9,30 @@ on:
       - main
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: laravel
+      docker:
+        image: docker:20.10-dind
+        options: --privileged
         ports:
           - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
-    env:
-      DB_CONNECTION: mysql
-      DB_HOST: 127.0.0.1
-      DB_PORT: 3306
-      DB_DATABASE: laravel
-      DB_USERNAME: root
-      DB_PASSWORD: password
 
     steps:
-    - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Build and Test Laravel Application
-      run: |
-        cp .env.example .env
-        docker build -t my-laravel-app .
-        docker run --env-file .env --network host my-laravel-app php artisan migrate --env=testing --force
-        docker run --env-file .env --network host my-laravel-app php artisan test --env=testing
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and run Docker containers
+        run: |
+          docker-compose -f docker-compose.cd.yml build
+          docker-compose -f docker-compose.cd.yml up -d
+          docker-compose -f docker-compose.cd.yml exec app composer install
+          docker-compose -f docker-compose.cd.yml exec app php artisan migrate --seed
+
+      - name: Run tests
+        run: |
+          docker-compose -f docker-compose.cd.yml exec app ./vendor/bin/pest
