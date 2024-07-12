@@ -23,6 +23,11 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install mysqli \
     && docker-php-ext-install pdo pdo_mysql
 
+# Instalação do Composer
+RUN apt-get update && apt-get install -y \
+    curl \
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
 # Fase final
 FROM php:8.1-fpm
 
