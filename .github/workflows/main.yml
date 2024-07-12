@@ -45,6 +45,11 @@ jobs:
       - name: Config Laravel
         uses: ./.github/actions/config-laravel
 
+      - name: Run NPM
+        run: |
+          npm ci
+          npm run build
+
       - name: Run Test with Pest
         env:
           DB_CONNECTION: mysql
