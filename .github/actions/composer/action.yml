@@ -1,6 +1,6 @@
 name: "composer-install"
 description: "Runs PHP Packages"
-run:
+runs:
   using: "Docker"
   image: "Dockerfile"
 brading:
