@@ -31,7 +31,7 @@ jobs:
 
       - name: Verify MySQL connection
         run: |
-          mysql --host 127.0.0.1 --port 3306 -uroot -psecret -e "SHOW DATABASES"
+          mysql --host localhost --port 3306 -uroot -psecret -e "SHOW DATABASES"
 
       # - name: Run Test with Pest
       #   env:
