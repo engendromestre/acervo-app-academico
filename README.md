@@ -6,12 +6,13 @@
 <p align="center">
 <img src="https://img.shields.io/badge/license-MIT-green">
 <img src="https://img.shields.io/badge/npm-v8.19.2-blue">
-<img src="https://img.shields.io/badge/release date-Abr/2023-yellow">
+<img src="https://img.shields.io/badge/release date-Abr/2024-yellow">
 </p>
 <p align="center">
 <img src="https://img.shields.io/badge/PHP 8.1.29-777BB4?style=for-the-badge&logo=php&logoColor=white">
 <img src="https://img.shields.io/badge/Laravel 9.52.16-FF2D20?style=for-the-badge&logo=laravel&logoColor=white">
 <img src="https://img.shields.io/badge/MySQL 8.0-316192?style=for-the-badge&logo=mysql&logoColor=white">
+<img src="https://img.shields.io/badge/Inertia_JS-9553E9?style=for-the-badge&logo=Inertia&logoColor=white">
 <img src="https://img.shields.io/badge/Vue.js v.3-35495E?style=for-the-badge&logo=vue.js&logoColor=4FC08D">
 <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white">
 </p>
