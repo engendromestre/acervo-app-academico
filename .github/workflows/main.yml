@@ -18,6 +18,9 @@ jobs:
 
       - name: Install Composer
         uses: ./.github/actions/composer
+      
+      - name: Config Laravel
+        uses: ./.github/actions/config-laravel
 
       - name: Setup Database Config
         uses: mirromutth/mysql-action@v1.1
@@ -26,8 +29,10 @@ jobs:
           mysql database: "test"
           mysql root password: "secret"
 
-      - name: Config Laravel
-        uses: ./.github/actions/config-laravel
+      - name: Verify MySQL connection
+        run: |
+          mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uuser -psecret -e "SHOW DATABASES"
+      
 
       # - name: Run Test with Pest
       #   env:
