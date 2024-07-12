@@ -1,0 +1,7 @@
+name: "composer-install"
+description: "Runs PHP Packages"
+run:
+  using: "Docker"
+  image: "Dockerfile"
+brading:
+  icon: "download"
