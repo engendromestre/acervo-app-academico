@@ -11,26 +11,32 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_USER: user
+          MYSQL_PASSWORD: secret
+          MYSQL_DATABASE: testdatabase
+          MYSQL_ROOT_PASSWORD: root
+          DB_PORT: ${{ job.services.mysql.ports[3306] }}
+        ports:
+          - 33306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Verify MySQL connection
+        run: |
+          mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uuser -psecret -e "SHOW DATABASES"
 
       - name: Install Composer
         uses: ./.github/actions/composer
 
       - name: Config Laravel
         uses: ./.github/actions/config-laravel
-
-      - name: Setup Database Config
-        uses: mirromutth/mysql-action@v1.1
-        with:
-          mysql version: "8.0"
-          mysql database: "test"
-          mysql root password: "secret"
-
-      - name: Check MySQL service status
-        run: sudo systemctl status mysql
 
       # - name: Run Test with Pest
       #   env:
