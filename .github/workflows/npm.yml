@@ -1,0 +1,26 @@
+name: NPM Workflow
+
+on:
+    push:
+      paths:
+        - 'resources/js/*'
+      branches:
+        - main
+    pull_request:
+      paths:
+        - 'resources/js/*'
+      branches:
+        - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Run NPM CI
+      run: npm ci
+    - name: Run Build
+      run: npm run build
