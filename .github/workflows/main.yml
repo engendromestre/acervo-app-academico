@@ -29,9 +29,8 @@ jobs:
           mysql database: "test"
           mysql root password: "secret"
 
-      - name: Verify MySQL connection
-        run: |
-          mysql --host localhost --port 3306 -uroot -psecret -e "SHOW DATABASES"
+      - name: Check MySQL service status
+        run: sudo systemctl status mysql
 
       # - name: Run Test with Pest
       #   env:
