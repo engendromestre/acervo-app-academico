@@ -26,8 +26,22 @@ jobs:
           mysql database: "test"
           mysql root password: "secret"
 
-      - name: Config Laravel
-        uses: ./.github/actions/config-laravel
+      - name: Prepare Laravel Environment
+        env:
+            APP_ENV: testing
+            DB_CONNECTION: mysql
+            DB_DATABASE: test
+            DB_USERNAME: root
+            DB_PASSWORD: secret
+        run: |
+            cp .env.example .env
+            php artisan cache:clear
+            php artisan config:clear
+            php artisan key:generate
+            php artisan migrate --seed
+            php artisan storage:link
+            chmod -R 777 storage bootstrap/cache
+
       - name: Run Test with Pest
         env:
           DB_CONNECTION: mysql
