@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Unit Tests
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     services:
@@ -17,22 +17,22 @@ jobs:
         image: docker:20.10-dind
         options: --privileged
         ports:
-          - 3306:3306
+          - 3306:3306  # Se necessário, ajuste ou remova conforme os testes
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
 
-      - name: Build and run Docker containers
-        run: |
-          docker-compose -f docker-compose.ci.yml build
-          docker-compose -f docker-compose.ci.yml up -d
-          docker-compose -f docker-compose.ci.yml exec app composer install
-          docker-compose -f docker-compose.ci.yml exec app php artisan migrate --seed
+    - name: Build Docker image
+      run: docker build -t laravel-app .
 
-      - name: Run tests
-        run: |
-          docker-compose -f docker-compose.ci.yml exec app ./vendor/bin/pest
+    - name: Run tests
+      run: |
+        docker run --rm \
+          -v $(pwd):/app \
+          -w /app \
+          laravel-app \
+          ./vendor/bin/pest

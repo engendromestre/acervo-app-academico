@@ -23,13 +23,18 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install mysqli \
     && docker-php-ext-install pdo pdo_mysql
 
-# Fase de produção
+# Fase final
 FROM php:8.1-fpm
 
 WORKDIR /app
 
 COPY --from=php /app /app
 COPY --from=composer /app/vendor /app/vendor
+
+# Instalação das dependências de teste
+RUN apt-get update && apt-get install -y git \
+    && composer require pestphp/pest --dev \
+    && composer require pestphp/pest-plugin-laravel --dev
 
 EXPOSE 9000
 CMD ["php-fpm"]
