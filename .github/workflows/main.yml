@@ -20,3 +20,5 @@ jobs:
       uses: ./.github/actions/composer
     - name: Config Laravel
       uses: ./.github/actions/config-laravel
+    - name: Run Test with Pest
+      run: ./vendor/bin/pest
