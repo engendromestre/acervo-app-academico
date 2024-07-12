@@ -1,4 +1,4 @@
-name: Acervo Workflow
+name: Laravel Workflow
 
 on:
   push:
@@ -15,9 +15,24 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
       - name: Install Composer
         uses: ./.github/actions/composer
+
+      - name: Setup Database Config
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql version: "8.0"
+          mysql database: "test"
+          mysql root password: "secret"
+
       - name: Config Laravel
         uses: ./.github/actions/config-laravel
-    # - name: Run Test with Pest
-    #   run: ./vendor/bin/pest
+      - name: Run Test with Pest
+        env:
+          DB_CONNECTION: mysql
+          DB_DATABASE: test
+          DB_PORT: 3306
+          DB_PASSWORD: secret
+          DB_USERNAME: root
+        run: ./vendor/bin/pest
