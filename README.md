@@ -33,12 +33,14 @@ Para tornar os arquivos públicos na web, deve ser criado um link simbólico.
 ## Deploy Local e Publicação
 
 ### Ambiente de Desenvolvimento
+
 1. Clone e acesse o código-fonte em um ambiente Linux ou no WSL
 
 ```bash
 https://github.com/engendromestre/acervo-app-academico.git
 cd acervo-app-academico
 ```
+
 2. Instalar todas as depedências requeridas pelo Laravel Sail
 
 ```bash
@@ -81,13 +83,13 @@ MAIL_FROM_NAME="${APP_NAME}"
 5. Rodar o ambiente de desenvolvimento Sail
 
 ```bash
-sail up -d 
+sail up -d
 ```
 
 6. Gerar a chave APP_KEY
 
 ```bash
-sail artisan key:generate 
+sail artisan key:generate
 ```
 
 7. Migrar o banco de dados com as seeds
@@ -99,16 +101,17 @@ sail artisan migrate --seed
 8. Criar link simbólico
 
 ```bash
-php artisan storage:link
+sail artisan storage:link
 ```
 
 9. Manter a compilação dos assets atualizadas durante o desenvolvimento
 
 ```bash
-npm run dev
+sail npm run dev
 ```
 
-### Ambiente de Produção 
+### Ambiente de Produção
+
 1. Instalar depedências de produção. Caso decida hospedar em um servidor compartilhado que não possua acesso root, gere as dependências do projeto
 
 ```bash
@@ -121,12 +124,13 @@ Obs.: verifique a engine package.json para ver as versões compatíveis.
 2. Compilar o aplicativo
 
 ```bash
-npm build
+npm run build
 ```
 
 Obs.: Neste ponto está pronto para subir para a hospedagem, caso não possua acesso root do servidor.
 
 ## Links do Projeto
+
 <p>
 <a href="https://miro.com/app/board/uXjVKAdsdKI=/?share_link_id=549149955540" target="_blank" />Lean Canvas
 </p>
