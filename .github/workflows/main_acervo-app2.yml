@@ -58,27 +58,6 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
-      - name: Configure Laravel Environment
-        run: |
-          sudo chown -R $USER: .
-          sudo chgrp -R $USER .
-          cp .env.example .env
-          php artisan config:cache
-          php artisan route:cache
-          php artisan view:cache
-          php artisan key:generate
-          php artisan migrate --seed
-          php artisan storage:link
-          npm install --production
-          npm run build
-        env:
-          DB_CONNECTION: mysql
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          DB_DATABASE: ${{ secrets.DB_DATABASE }}
-          DB_USERNAME: ${{ secrets.DB_USERNAME }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -93,3 +72,16 @@ jobs:
           app-name: "acervo-app2"
           slot-name: "Production"
           package: .
+
+      - name: Configure Laravel Environment
+        run: |
+          php artisan config:cache
+          php artisan route:cache
+          php artisan view:cache
+        env:
+          DB_CONNECTION: mysql
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_DATABASE: ${{ secrets.DB_DATABASE }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
