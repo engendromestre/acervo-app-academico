@@ -132,8 +132,9 @@ jobs:
           slot-name: "Production"
           package: .
 
-      # - name: Setup configuration files
-      #   run: |
-      #     cp .github/azure-deploy/startup.sh /home/startup.sh
-      #     chmod +x /home/startup.sh
-      #     ./home/startup.sh
+      - name: Setup configuration files
+        run: |
+          mkdir -p /home/site/wwwroot
+          cp .github/azure-deploy/startup.sh /home/startup.sh
+          chmod +x /home/startup.sh
+          ./home/startup.sh
