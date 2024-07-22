@@ -1,6 +1,12 @@
 #!/bin/bash
 set -e
 
+# Install composer dependencies
+composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+
+# Check and copy .env file
+php -r "file_exists('.env') || copy('.env.example', '.env');"
+
 echo "Deployment started ...."
 
 # Enter maintenance mode or return true
@@ -9,12 +15,6 @@ echo "Deployment started ...."
 
 # Pull the latest version of the app
 git pull --rebase --autostash
-
-# Check and copy .env file
-php -r "file_exists('.env') || copy('.env.example', '.env');"
-
-# Install composer dependencies
-composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 
 # Generate Key
 php artisan key:generate
