@@ -32,7 +32,7 @@ npm install
 npm run build
 
 # Run database migrations
-php artisan migrate --force
+# php artisan migrate --force
 
 # Create Symbolic link
 php artisan storage:link
