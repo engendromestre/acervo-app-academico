@@ -86,6 +86,16 @@ jobs:
         with:
           php-version: "8.2"
 
+      - name: Check if composer.json exists
+        id: check_files
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "composer.json"
+
+      - name: Run composer install if composer.json exists
+        if: steps.check_files.outputs.files_exists == 'true'
+        run: composer validate --no-check-publish && composer install --prefer-dist --no-progress
+
       - name: Adjust file permissions
         run: |
           chmod -R u+rwX .
@@ -122,7 +132,32 @@ jobs:
           slot-name: "Production"
           package: .
 
-      - name: Run deployment script
-        run: |
-          chmod +x deploy.sh
-          ./deploy.sh
+      - name: Enter maintenance mode
+        run: php artisan down
+
+      - name: Pull the latest version of the app
+        run: git pull --rebase --autostash
+
+      - name: Generate Key
+        run: php artisan key:generate
+
+      - name: Clear the old cache
+        run: php artisan clear-compiled
+
+      - name: Recreate cache
+        run: php artisan optimize
+
+      - name: Install npm dependencies
+        run: npm install
+
+      - name: Compile npm assets with build
+        run: npm run build
+
+      # - name: Run database migrations
+      #   run: php artisan migrate --force
+
+      - name: Create Symbolic link
+        run: php artisan storage:link
+
+      - name: Exit maintenance mode
+        run: php artisan up
