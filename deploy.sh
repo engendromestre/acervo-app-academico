@@ -10,6 +10,9 @@ echo "Deployment started ...."
 # Pull the latest version of the app
 git pull --rebase --autostash
 
+# Check and copy .env file
+php -r "file_exists('.env') || copy('.env.example', '.env');"
+
 # Install composer dependencies
 composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 
