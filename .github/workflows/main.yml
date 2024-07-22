@@ -138,6 +138,9 @@ jobs:
       - name: Pull the latest version of the app
         run: git pull --rebase --autostash
 
+      - name: create .env file
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
       - name: Generate Key
         run: php artisan key:generate
 
