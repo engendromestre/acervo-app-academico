@@ -1,2 +1,2 @@
 #!/bin/bash
-composer install
+composer validate --no-check-publish && composer install --prefer-dist --no-progress
