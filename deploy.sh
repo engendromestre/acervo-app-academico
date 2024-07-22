@@ -5,7 +5,7 @@ set -e
 composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 
 # Check and copy .env file
-php -r "file_exists('.env') || copy('.env.example', '.env');"
+[ ! -f .env ] && cp .env.example .env
 
 echo "Deployment started ...."
 
