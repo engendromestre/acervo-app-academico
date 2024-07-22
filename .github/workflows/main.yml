@@ -131,3 +131,7 @@ jobs:
           app-name: "acervo-app2"
           slot-name: "Production"
           package: .
+
+      - name: Setup configuration files
+        run: |
+          cp .github/azure-deploy/startup.sh /home/startup.sh
