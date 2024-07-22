@@ -86,18 +86,13 @@ jobs:
         with:
           php-version: "8.2"
 
-      - name: Check if composer.json exists
-        id: check_files
-        uses: andstor/file-existence-action@v1
-        with:
-          files: "composer.json"
-
-      - name: Run composer install if composer.json exists
-        if: steps.check_files.outputs.files_exists == 'true'
-        uses: ./.github/actions/composer
+      - name: Adjust file permissions
+        run: |
+          chmod -R u+rwX .
 
       - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
+        # run: zip release.zip ./* -r
+        run: zip -r release.zip .
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -128,15 +123,7 @@ jobs:
           slot-name: "Production"
           package: .
 
-      - name: Configure Laravel Environment
+      - name: Run deployment script
         run: |
-          php artisan config:cache
-          php artisan route:cache
-          php artisan view:cache
-        env:
-          DB_CONNECTION: mysql
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          DB_DATABASE: ${{ secrets.DB_DATABASE }}
-          DB_USERNAME: ${{ secrets.DB_USERNAME }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          chmod +x deploy.sh
+          ./deploy.sh
