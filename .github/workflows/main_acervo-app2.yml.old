@@ -19,13 +19,13 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.2"
+          php-version: '8.2'
 
       - name: Check if composer.json exists
         id: check_files
         uses: andstor/file-existence-action@v1
         with:
-          files: "composer.json"
+          files: 'composer.json'
 
       - name: Run composer install if composer.json exists
         if: steps.check_files.outputs.files_exists == 'true'
@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: "Production"
+      name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
       id-token: write #This is required for requesting the JWT
@@ -57,31 +57,19 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
-
+      
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_DBFC61FBD7B24674AAD7BDC0B0410A46 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_455D0EF6F98249DAB9366BB25237148A }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_ABE1697C8E484282B167773B0CCE5A7A }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_62A15ACE30934BEE90EDF29639177273 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_5BE0E9AC31EA48F5879DB79D2D00C298 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_210CABA748C5412EAC749313B246CFEF }}
 
-      - name: "Deploy to Azure Web App"
+      - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
-          app-name: "acervo-app2"
-          slot-name: "Production"
+          app-name: 'acervo-app2'
+          slot-name: 'Production'
           package: .
-
-      - name: Configure Laravel Environment
-        run: |
-          php artisan config:cache
-          php artisan route:cache
-          php artisan view:cache
-        env:
-          DB_CONNECTION: mysql
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          DB_DATABASE: ${{ secrets.DB_DATABASE }}
-          DB_USERNAME: ${{ secrets.DB_USERNAME }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          
