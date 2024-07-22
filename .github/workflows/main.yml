@@ -101,7 +101,7 @@ jobs:
           chmod -R u+rwX .
 
       - name: Zip artifact for deployment
-        run: zip -r release.zip .
+        run: zip -r release.zip ./*
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -131,36 +131,3 @@ jobs:
           app-name: "acervo-app2"
           slot-name: "Production"
           package: .
-
-      - name: Enter maintenance mode
-        run: php artisan down
-
-      - name: Pull the latest version of the app
-        run: git pull --rebase --autostash
-
-      - name: create .env file
-        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-
-      - name: Generate Key
-        run: php artisan key:generate
-
-      - name: Clear the old cache
-        run: php artisan clear-compiled
-
-      - name: Recreate cache
-        run: php artisan optimize
-
-      - name: Install npm dependencies
-        run: npm install
-
-      - name: Compile npm assets with build
-        run: npm run build
-
-      # - name: Run database migrations
-      #   run: php artisan migrate --force
-
-      - name: Create Symbolic link
-        run: php artisan storage:link
-
-      - name: Exit maintenance mode
-        run: php artisan up
