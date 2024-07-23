@@ -12,6 +12,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    environment:
+      name: "Production"
     services:
       mysql:
         image: mysql:8.0
