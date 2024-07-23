@@ -16,10 +16,10 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_USER: user
-          MYSQL_PASSWORD: secret
-          MYSQL_DATABASE: testdatabase
-          MYSQL_ROOT_PASSWORD: root
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
         ports:
           - 33306:3306
@@ -138,18 +138,3 @@ jobs:
           app-name: "acervo-app2"
           slot-name: "Production"
           package: .
-      
-      - name: Run startup script
-        run: |
-          apt-get update
-          apt-get install -y supervisor
-          cp ./.github/actions/azure/laravel-worker.conf /etc/supervisor/conf.d/laravel-worker.conf
-          service nginx restart
-          service supervisor restart
-          php /home/site/wwwroot/artisan down --refresh=15 --secret="1630542a-246b-4b66-afa1-dd72a4c43515"
-          php /home/site/wwwroot/artisan cache:clear
-          php /home/site/wwwroot/artisan route:cache
-          php /home/site/wwwroot/artisan config:cache
-          php /home/site/wwwroot/artisan view:cache
-          php /home/site/wwwroot/artisan up
-          nohup php /home/site/wwwroot/artisan queue:work &
