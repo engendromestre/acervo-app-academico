@@ -16,10 +16,10 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_USER: ${{ secrets.MYSQL_USER }}
-          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
-          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          MYSQL_USER: ${{ secrets.TEST_MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.TEST_MYSQL_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.TEST_MYSQL_DATABASE }}
+          MYSQL_ROOT_PASSWORD: ${{ secrets.TEST_MYSQL_ROOT_PASSWORD }}
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
         ports:
           - 33306:3306
