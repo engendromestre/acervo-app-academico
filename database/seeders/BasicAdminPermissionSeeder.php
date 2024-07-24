@@ -69,20 +69,8 @@ class BasicAdminPermissionSeeder extends Seeder
         // create demo users
         $user = \App\Models\User::factory()->create([
             'name' => 'Super Admin',
-            'email' => 'superadmin@engendrando.com',
+            'email' => env('APP_SUPERADMIN'),
         ]);
         $user->assignRole($role3);
-
-        $user = \App\Models\User::factory()->create([
-            'name' => 'Admin User',
-            'email' => 'admin@engendrando.com',
-        ]);
-        $user->assignRole($role2);
-
-        $user = \App\Models\User::factory()->create([
-            'name' => 'User',
-            'email' => 'user@engendrando.com',
-        ]);
-        $user->assignRole($role1);
     }
 }
