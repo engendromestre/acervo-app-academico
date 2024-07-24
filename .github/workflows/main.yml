@@ -62,6 +62,7 @@ jobs:
 
       - name: Run Test with Pest
         env:
+          APP_SUPERADMIN: ${{ secrets.TEST_APP_SUPERADMIN }}
           DB_CONNECTION: mysql
           DB_DATABASE: testdatabase
           DB_PORT: 33306
