@@ -73,6 +73,6 @@ Route::patch('/', [WelcomeController::class, 'visitsIncrement'])->name('welcome.
 
 
 // Route::get('/sendmailtest', function() {
-//     $user = User::where('email', 'superadmin@engendrando.com')->first();
+//     $user = User::where('email', env('APP_SUPERADMIN'))->first();
 //     return new \App\Mail\NotifySocialiteUser($user);
 // });

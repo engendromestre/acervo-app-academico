@@ -10,9 +10,9 @@ beforeEach(function () {
     // Rodar o seeder
     $this->seed(\Database\Seeders\BasicAdminPermissionSeeder::class);
     // Obter usuários criados pelo seeder
-    $this->superAdmin = User::where('email', 'superadmin@engendrando.com')->first();
-    $this->adminUser = User::where('email', 'admin@engendrando.com')->first();
-    $this->normalUser = User::where('email', 'user@engendrando.com')->first();
+    $this->superAdmin = User::where('email', env('APP_SUPERADMIN'))->first();
+    $this->adminUser = User::where('email', env('APP_ADMIN'))->first();
+    $this->normalUser = User::where('email', env('APP_USER'))->first();
 });
 
 it('can create user', function () {
