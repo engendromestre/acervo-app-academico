@@ -3,8 +3,7 @@ import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig(({ mode }) => {
-    const isDevelopment = mode === process.env.VITE_ENV === 'development';
-
+    const isDevelopment = mode === 'development';
     return {
         server: {
             https: isDevelopment ? false : true, // Usar HTTPS se não estiver em desenvolvimento
