@@ -6,7 +6,6 @@
 /storage/
 /keys
 /vendor
-/secrets
 .env
 .env.backup
 .phpunit.result.cache
