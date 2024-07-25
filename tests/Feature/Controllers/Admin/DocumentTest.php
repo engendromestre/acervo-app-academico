@@ -23,7 +23,7 @@ beforeEach(function () {
 it('can create document', function () {
     $response = $this->actingAs($this->superAdmin)->get(route('document.index'));
 
-    Storage::fake('public');
+    Storage::fake('s3');
     $faker = app(Faker::class);
     $file = UploadedFile::fake()->create('document.pdf', 1000, 'application/pdf');
 
@@ -44,7 +44,7 @@ it('can create document', function () {
     $this->assertDatabaseHas('documents', ['title' =>  $title]);
     /** @phpstan-ignore-next-line */
     //Storage::disk('public')->assertExists("documents/{$file->hashName()}");
-    $this->assertTrue(Storage::disk('public')->exists("documents/{$file->hashName()}"));
+    $this->assertTrue(Storage::disk('s3')->exists("documents/{$file->hashName()}"));
 });
 
 it('can update document', function () {
@@ -77,6 +77,7 @@ it('can update document', function () {
 });
 
 it('can delete a document', function () {
+    Storage::fake('s3');
     $this->actingAs($this->superAdmin)->get(route('document.index'));
 
     $document = Document::factory()->create();
@@ -86,6 +87,8 @@ it('can delete a document', function () {
     $this->assertDatabaseMissing('documents', [
         'id' => $document->id,
     ]);
+    // Verificar se o arquivo foi removido do disco fake S3
+    Storage::disk('s3')->assertMissing("documents/{$document->file}");
 });
 
 it('can list documents with filters and pagination', function () {

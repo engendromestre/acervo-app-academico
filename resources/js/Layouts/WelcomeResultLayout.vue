@@ -76,7 +76,7 @@ const count = ref(1);
                                 </p>
                                 <hr class="mt-3 h-px bg-gray-200 border-0 dark:bg-gray-700" />
                                 <div class="mt-3 flex space-x-4 float-right">
-                                    <a :title="obj.file.replace('documents/', '')" :href="'/storage/' + obj.file"
+                                    <a :title="obj.file.replace('documents/', '')" :href="obj.file"
                                         target="_blank">
                                         <button type="button" @click="incrementDocument(obj.id)"
                                             class="px-1 py-1 text-gray-900 bg-white hover:bg-gray-100 border border-gray-50 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700">

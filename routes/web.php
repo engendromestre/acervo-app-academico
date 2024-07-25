@@ -76,3 +76,12 @@ Route::patch('/', [WelcomeController::class, 'visitsIncrement'])->name('welcome.
 //     $user = User::where('email', env('APP_SUPERADMIN'))->first();
 //     return new \App\Mail\NotifySocialiteUser($user);
 // });
+
+Route::get('/uploadtest', function() {
+    try {
+        $upload = Storage::put('example2.jpg',file_get_contents('https://img.freepik.com/psd-gratuitas/3d-flor-rosa-isolada-em-fundo-transparente_191095-16624.jpg'),'public');
+        dd($upload);
+    } catch (\Exception $e) {
+        return $e->getMessage();
+    }
+});
