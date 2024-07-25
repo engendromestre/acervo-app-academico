@@ -59,6 +59,11 @@ jobs:
         run: |
           npm ci
           npm run build
+      
+      - name: Create cache directory
+        run: mkdir -p storage/framework/views
+      - name: Set permissions
+        run: chmod -R 775 storage/framework/views
 
       - name: Run Test with Pest
         env:
