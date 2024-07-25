@@ -38,7 +38,7 @@ const props = defineProps({
                                 <template v-if="property.accept">
                                     <template v-for="pa in property.accept">
                                         <template v-if="pa.type === 'application/pdf'">
-                                            <a :title="obj[field]" :href="'/storage/' + obj[field]" target="_blank">
+                                            <a :title="obj[field]" :href="obj[field]" target="_blank">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="red"
                                                     class="bi bi-file-pdf w-8" viewBox="0 0 16 16">
                                                     <path

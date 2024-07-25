@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class DocumentController extends Controller
 {
@@ -82,20 +83,45 @@ class DocumentController extends Controller
     {
         $request->validate($document->rules());
 
-        $file = $request->file('file');
-        $fileUrn = $file->store('documents', 'public');
+         // Iniciar uma transação
+        DB::beginTransaction();
 
-        $document->create([
-            'title' => $request->title,
-            'subtitle' => $request->subtitle,
-            'collection_id' => $request->collection_id,
-            'course_id' => $request->course_id,
-            'author' => $request->author,
-            'advisor' =>   $request->advisor,
-            'file' => $fileUrn,
-            'publicationYear' => $request->publicationYear
-        ]);
-        return redirect()->route('document.index', ['page' => $request->input('page')])->with('message', 'Created Successfully');
+        try {
+            // Processar o arquivo
+            $file = $request->file('file');
+
+            // Gerar um nome aleatório para o arquivo usando o método `store()`
+            $randomFileName = $file->hashName();
+            $filePath = 'documents/' . $randomFileName;
+
+            // Armazenar o arquivo no S3
+            Storage::disk('s3')->put($filePath, fopen($file, 'r'), 'public');
+
+             // Obter a URL pública do arquivo
+            $fileUrl = Storage::disk('s3')->url($filePath);
+
+            $document->create([
+                'title' => $request->title,
+                'subtitle' => $request->subtitle,
+                'collection_id' => $request->collection_id,
+                'course_id' => $request->course_id,
+                'author' => $request->author,
+                'advisor' =>   $request->advisor,
+                'file' => $fileUrl,
+                'publicationYear' => $request->publicationYear
+            ]);
+
+            // Confirmar a transação
+            DB::commit();
+            
+            return redirect()->route('document.index', ['page' => $request->input('page')])->with('message', 'Created Successfully');
+        } catch (\Exception $e) {
+            // Reverter a transação se algo falhar
+            DB::rollBack();
+            // Log de erro para depuração
+            Log::error('Erro ao criar o documento: ' . $e->getMessage());
+            return redirect()->back()->withErrors(['error' => 'Ocorreu um erro ao criar o documento. Por favor, tente novamente.']);
+        }
     }
 
     /**
@@ -128,7 +154,7 @@ class DocumentController extends Controller
                 404
             );
         }
-        Storage::disk('public')->delete($document->file);
+        Storage::disk('s3')->delete($document->file);
         $document->delete();
     }
 }
