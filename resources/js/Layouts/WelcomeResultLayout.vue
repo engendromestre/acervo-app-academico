@@ -36,7 +36,7 @@ const incrementDocument = (id) => {
         'fields': props.fields
     });
 
-    form.patch(route("welcome.visitsIncrement"), {
+    form.put(route("welcome.visitsIncrement"), {
         onError: (e) => {
             console.error(e);
         }
