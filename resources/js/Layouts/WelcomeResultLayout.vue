@@ -26,6 +26,7 @@ const setAction = async (id) => {
 
 const incrementDocument = (id) => {
     const form = useForm({
+        '_token': page.props.csrf_token,
         'id': id,
         '_method': 'patch',
         'canLogin': props.canLogin,
