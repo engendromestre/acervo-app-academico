@@ -69,7 +69,7 @@ Route::group([
 
 Route::post('/{id}', [WelcomeController::class, 'getVisit'])->name('welcome.getVisit');
 Route::post('/', [WelcomeController::class, 'list'])->name('welcome');
-Route::put('/', [WelcomeController::class, 'visitsIncrement'])->name('welcome.visitsIncrement');
+Route::patch('/increment-document', [WelcomeController::class, 'visitsIncrement'])->name('welcome.visitsIncrement');
 
 
 // Route::get('/sendmailtest', function() {
