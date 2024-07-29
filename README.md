@@ -22,7 +22,7 @@
 
 ## Descrição do Projeto
 
-Desenvolver e disponibilizar um acervo virtual de documentos em formato PDF registrados segundo a sua coleção (monografia, tese, artigo científico, etc.), cursos (Enfermagem, Engenharia, etc.), entre outros requisitos como: autor, orientador título e subtítulo.
+Este projeto visa em criar uma aplicação para disponibilizar um acervo virtual de documentos em formato PDF registrados segundo a sua coleção (monografia, tese, artigo científico, etc.), cursos (Enfermagem, Engenharia, etc.), entre outros requisitos como: autor, orientador título e subtítulo.
 A disponibilização é feita pela página principal, a qual possui um design minimalista e 100% compatível com a Web, nível avançado de adaptação a dispositivos móveis (mobile first), sendo corretamente apresentado em tablets, celulares e desktops.
 
 ### Repositório dos Documentos
@@ -112,22 +112,93 @@ sail npm run dev
 
 ### Ambiente de Produção
 
-1. Instalar depedências de produção. Caso decida hospedar em um servidor compartilhado que não possua acesso root, gere as dependências do projeto
+Este repositório utiliza GitHub Actions para automatizar o processo de teste e implantação do Aplicativo Acervo-App para o Azure. O workflow é dividido em duas partes principais: test e deploy.
 
-```bash
-composer update
-npm install --production
-```
+#### Workflow Overview
 
-Obs.: verifique a engine package.json para ver as versões compatíveis.
+O workflow é acionado em três situações:
 
-2. Compilar o aplicativo
+ - Push: Quando há um push para o branch main.
+ - Pull Request: Quando um pull request é criado ou atualizado para o branch main.
+ - Workflow Dispatch: Permite iniciar o workflow manualmente.
 
-```bash
-npm run build
-```
+##### Jobs
 
-Obs.: Neste ponto está pronto para subir para a hospedagem, caso não possua acesso root do servidor.
+1. Test
+ - Executa em Ubuntu: Configura o PHP e MySQL, e realiza testes.
+ - Etapas:
+   - Checkout do código.
+   - Configuração do PHP com extensões necessárias.
+   - Verificação da conexão MySQL.
+   - Instalação das dependências do Composer se composer.json existir.
+   - Configuração do Laravel.
+   - Instalação e construção dos assets NPM.
+   - Criação e configuração de diretórios de cache.
+   - Execução de testes com Pest.
+
+2. Deploy
+ - Executa após os testes: Faz o deploy para o Azure Web App.
+ - Etapas:
+    - Checkout do código.
+    - Configuração do PHP e Node.js.
+    - Validação e instalação do Composer.
+    - Criação e upload de um arquivo ZIP com o projeto.
+    - Download e descompactação do artefato.
+    - Instalação de dependências NPM e construção dos assets.
+    - Login no Azure e implantação do aplicativo.
+
+3. Configurações das Variáveis de Ambiente
+ - Adicione os seguintes secrets no GitHub:
+
+    - Configurações do MySQL e credenciais do AWS.
+    - Credenciais de acesso ao Azure.
+
+#### Azure App Service
+
+ 1.  Criar as seguintes variáveis de ambiente com seus respectivos valores:
+- APP_ADMIN
+- APP_DEBUG
+- APP_ENV
+- APP_KEY
+- APP_NAME
+- APP_SUPERADMIN
+- APP_URL
+- APP_USER
+- AWS_ACCESS_KEY_ID
+- AWS_BUCKET
+- AWS_DEFAULT_REGION
+- AWS_SECRET_ACCESS_KEY
+- DB_CONNECTION
+- DB_DATABASE
+- DB_HOST
+- DB_PASSWORD
+- DB_PORT
+- DB_USERNAME
+- FILESYSTEM_DISK
+- GOOGLE_CALLBACK_REDIRECT
+- GOOGLE_CLIENT_ID
+- GOOGLE_CLIENT_SECRET
+- MAIL_ENCRYPTION
+- MAIL_FROM_ADDRESS
+- MAIL_FROM_NAME
+- MAIL_HOST
+- MAIL_MAILER
+- MAIL_PASSWORD
+- MAIL_PORT
+- MAIL_USERNAME
+- VITE_ENV
+- VITE_PUSHER_APP_CLUSTER
+- VITE_PUSHER_APP_KEY
+- VITE_PUSHER_HOST
+- VITE_PUSHER_PORT
+- VITE_PUSHER_SCHEME
+
+2. Configuração
+
+Crie um comando de iniciação para configurar o PHP, Nginx e Laravel.
+
+**Observação:** os arquivos com os scripts dos comandos estão no diretório .github/actions/azure.
+
 
 ## Links do Projeto
 
@@ -137,4 +208,8 @@ Obs.: Neste ponto está pronto para subir para a hospedagem, caso não possua ac
 
 <p>
 <a href="https://miro.com/app/board/uXjVK_jLHG0=/?share_link_id=263872928237" target="_blank" />Diagrama C4
+</p>
+
+<p>
+<a href="https://acervo-app2.azurewebsites.net/" target="_blank" />Endereço do site
 </p>
