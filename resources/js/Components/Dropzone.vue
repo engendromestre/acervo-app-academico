@@ -101,6 +101,7 @@ const addFile = (target, file) => {
 }
 
 const onFileSelected = (e) => {
+    console.log(e);
     if (e.target.files !== null) {
         for (const file of e.target.files) {
             addFile(gallery, file);

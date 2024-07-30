@@ -24,7 +24,7 @@ class Document extends Model
             'author' => ['title' => 'Author', 'dataType' => 'text', 'value' => '', 'create' => true, 'read' => true, 'update' => true, 'position' => '4'],
             'advisor' => ['title' => 'Advisor', 'dataType' => 'text', 'value' => '', 'create' => true, 'read' => true, 'update' => true, 'position' => '5'],
             'file' => ['title' => 'File', 'dataType' => 'file', 'value' => '', 'create' => true, 'read' => true, 'update' => true, 'position' => '6',
-            'accept' => [ "PDF" => ['maxSizeMb' => 50,'type' => 'application/pdf' ],"PNG" => ['maxSizeMb' => 150,'type' => 'image/png' ] ] ],
+            'accept' => [ "PDF" => ['maxSizeMb' => 50,'type' => 'application/pdf' ] ] ],
             'publicationYear' => ['title' => 'Publication Year', 'dataType' => 'number', 'value' => '', 'create' => true, 'read' => true, 'update' => true, 'position' => '7'],
             'visits' => ['title' => 'Visits', 'dataType' => 'number','create' => false, 'read' => true, 'update' => false, 'position' => '8']
         ];

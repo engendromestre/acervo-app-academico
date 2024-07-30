@@ -101,7 +101,6 @@ class WelcomeController extends Controller
             'courses' =>  $request->courses,
             'canLogin' => $request->canLogin,
             'fields' => $request->fields,
-            'redirectTo' => '/'
         ]);
     }
 

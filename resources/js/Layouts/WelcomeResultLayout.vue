@@ -3,7 +3,6 @@ import { ref } from 'vue';
 import { useForm } from '@inertiajs/inertia-vue3';
 import AlertWarning from "@/Components/AlertWarning.vue";
 import { useStore } from "vuex";
-import { Inertia } from '@inertiajs/inertia';
 
 const props = defineProps({
     fields: Object,
@@ -25,6 +24,7 @@ const setAction = async (id) => {
     store.commit('toggleModal');
 }
 
+const emit = defineEmits(['update:data']);
 const incrementDocument = (id) => {
     const form = useForm({
         'id': id,
@@ -41,10 +41,10 @@ const incrementDocument = (id) => {
         onError: (e) => {
             console.error(e);
         },
-        onSuccess: (response) => {
-            if (response.props.redirectTo) {
-                Inertia.visit(response.props.redirectTo);
-            }
+        onSuccess: () => {
+           const url = new URL(window.location);
+           url.pathname = url.pathname.replace('/increment-document','');
+           history.replaceState(null, '', url);
         }
     });
 }
@@ -61,7 +61,7 @@ const count = ref(1);
                 </template>
                 <template v-else>
                     <template v-for="obj, idx in data" :key="idx">
-                        <div class="grid grid-rows-1 md:grid-rows-8 gap-4 mb-2.5" v-if="idx <= count">
+                        <div class="grid grid-rows-1 mb-2.5" v-if="idx <= count">
                             <div
                                 class="p-4 w-full bg-white rounded-lg border shadow-md dark:bg-gray-800 dark:border-gray-700">
                                 <a class="text-base font-medium text-gray-900 dark:text-white">

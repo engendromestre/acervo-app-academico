@@ -110,6 +110,11 @@ function exportToPDF() {
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-2">
             <div class="overflow-hidden shadow-sm sm:rounded-lg" v-if="dataLength > 0">
                 <Table :fields="fields" :items="data" :can="can" :lang="lang"></Table>
+                <div class="overflow-hidden sm:rounded-lg text-end">
+                    <div class="flex justify-end items=center p-5">
+                        <Paginate :links="data.links"></Paginate>
+                    </div>
+                </div>
                 <div id="printableArea">
                     <TableToPDF :fields="fields" :items="data" :can="can" :lang="lang" />
                 </div>
@@ -118,20 +123,14 @@ function exportToPDF() {
                 <AlertWarning :message="translate('No record found')" />
             </div>
         </div>
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-2" v-if="dataLength > 0">
-            <div class="overflow-hidden sm:rounded-lg text-end">
-                <div class="flex justify-end items=center p-5">
-                    <Paginate :links="data.links"></Paginate>
-                </div>
-            </div>
-        </div>
     </div>
 </template>
 
 <style scoped>
 #printableArea {
-  visibility: hidden; /* Esconde a div */
-  background: white;
-  padding: 20px;
+    visibility: hidden;
+    /* Esconde a div */
+    background: white;
+    padding: 20px;
 }
 </style>
