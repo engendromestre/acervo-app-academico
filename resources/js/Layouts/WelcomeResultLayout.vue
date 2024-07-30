@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import { useForm } from '@inertiajs/inertia-vue3';
 import AlertWarning from "@/Components/AlertWarning.vue";
 import { useStore } from "vuex";
+import { Inertia } from '@inertiajs/inertia';
 
 const props = defineProps({
     fields: Object,
@@ -39,6 +40,11 @@ const incrementDocument = (id) => {
     form.patch(route("welcome.visitsIncrement"), {
         onError: (e) => {
             console.error(e);
+        },
+        onSuccess: (response) => {
+            if (response.props.redirectTo) {
+                Inertia.visit(response.props.redirectTo);
+            }
         }
     });
 }

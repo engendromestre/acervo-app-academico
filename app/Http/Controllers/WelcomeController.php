@@ -100,7 +100,8 @@ class WelcomeController extends Controller
             'collections' =>  $request->collections,
             'courses' =>  $request->courses,
             'canLogin' => $request->canLogin,
-            'fields' => $request->fields
+            'fields' => $request->fields,
+            'redirectTo' => '/'
         ]);
     }
 
