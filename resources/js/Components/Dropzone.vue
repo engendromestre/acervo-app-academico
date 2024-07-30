@@ -180,7 +180,7 @@ onMounted(() => {
 
 </script>
 <template>
-    <section class="h-full overflow-auto pt-2 px-8 pb-8 w-full h-full flex flex-col">
+    <section class="h-full overflow-auto pt-2 px-8 pb-8 w-full flex flex-col">
 
         <div id="dropzoneDiv" class="relative h-full flex flex-col bg-white shadow-xl rounded-md">
             <div id="overlay" ref="overlay"
@@ -216,7 +216,7 @@ onMounted(() => {
         </div>
 
         <ul id="gallery" ref="gallery" @click="deleteFile" class="pt-8 pb-2 flex flex-1 flex-wrap -m-1">
-            <li ref="empty" class="h-full w-full text-center flex flex-col items-center justify-center items-center">
+            <li ref="empty" class="h-full w-full text-center flex flex-col items-center justify-center">
                 <img class="mx-auto w-32"
                     src="https://user-images.githubusercontent.com/507615/54591670-ac0a0180-4a65-11e9-846c-e55ffce0fe7b.png"
                     alt="no data" />
