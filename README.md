@@ -91,20 +91,35 @@ sail up -d
 ```bash
 sail artisan key:generate
 ```
+7. Limpar e gerar cache otimizado
 
-7. Migrar o banco de dados com as seeds
+```bash
+sail artisan config:clear
+sail artisan cache:clear
+sail artisan route:clear
+sail artisan config:cache
+```
+
+8. Migrar o banco de dados com as seeds
 
 ```bash
 sail artisan migrate --seed
 ```
 
-8. Criar link simbólico
+9. Criar link simbólico
 
 ```bash
 sail artisan storage:link
 ```
 
-9. Manter a compilação dos assets atualizadas durante o desenvolvimento
+10. Limpar cache do npm e instalar suas dependências
+
+```bash
+sail npm cache clean
+sail npm install
+```
+
+11. Manter a compilação dos assets atualizadas durante o desenvolvimento
 
 ```bash
 sail npm run dev
