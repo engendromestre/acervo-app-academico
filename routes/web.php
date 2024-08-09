@@ -67,7 +67,7 @@ Route::group([
     Route::resource('document', 'DocumentController');
 });
 
-Route::post('/{id}', [WelcomeController::class, 'getVisit'])->name('welcome.getVisit');
+Route::get('/{id}', [WelcomeController::class, 'getVisit'])->name('welcome.getVisit');
 Route::post('/', [WelcomeController::class, 'list'])->name('welcome');
 Route::patch('/increment-document', [WelcomeController::class, 'visitsIncrement'])->name('welcome.visitsIncrement');
 

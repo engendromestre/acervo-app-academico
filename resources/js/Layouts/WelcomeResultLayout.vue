@@ -19,7 +19,7 @@ const props = defineProps({
 const store = useStore();
 
 const setAction = async (id) => {
-    const item = await axios.post(route('welcome.getVisit', id));
+    const item = await axios.get(route('welcome.getVisit', id));
     store.commit('setItem', item.data);
     store.commit('toggleModal');
 }

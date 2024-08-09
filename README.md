@@ -112,10 +112,9 @@ sail artisan migrate --seed
 sail artisan storage:link
 ```
 
-10. Limpar cache do npm e instalar suas dependências
+10. Instalar dependências do NPM
 
 ```bash
-sail npm cache clean
 sail npm install
 ```
 

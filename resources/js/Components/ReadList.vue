@@ -30,7 +30,12 @@ for (const [key, property] of Object.entries(props.fields)) {
                 }
             }
         } else {
-            obj[property['title']] = store.getters.getItem[key];
+            if(key==='visits') {
+                obj[property['title']] = store.getters.getItem;
+            } else {
+                obj[property['title']] = store.getters.getItem[key];
+            }
+            
         }
         list.push(obj);
     }

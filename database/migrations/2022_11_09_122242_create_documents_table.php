@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('advisor');
             $table->year('publicationYear');
             $table->string('file');
-            $table->integer('visits')->nullable();
+            # $table->integer('visits')->nullable();
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Document;
+use App\Models\DocumentVisit;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -92,8 +93,10 @@ class WelcomeController extends Controller
     public function visitsIncrement(Request $request)
     {
         $document = Document::find($request->id);
-        $document->visits = $document->visits + 1;
-        $document->save();
+        $documentVisit = DocumentVisit::create([
+            'document_id'=>$document->id,
+            'ip_address' => implode($request->ips()),
+        ]);
         return Inertia::render('Welcome', [
             'document' => $document,
             'data' => $request->documents,
@@ -111,7 +114,7 @@ class WelcomeController extends Controller
      */
     public function getVisit(Request $request)
     {
-        $document = Document::find($request->id);
-        return response()->json($document, 200);
+        $visits = DocumentVisit::where('document_id','=',$request->id)->count();
+        return response()->json($visits, 200);
     }
 }
