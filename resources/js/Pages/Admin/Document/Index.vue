@@ -120,14 +120,19 @@ const breadcrumbs = computed(() => {
         { label: "Documents" },
     ];
 });
+
+console.log(props.fields);
 </script>
 <template>
 
     <Head :title="translate('Document')" />
     <AuthenticatedLayout :lang="lang" :breadcrumbs="breadcrumbs">
-        <template v-if="fields.collection_id.fixedValues.length === 0 || fields.course_id.fixedValues.length === 0">
+        <template v-if="fields.collection_id.fixedValues.length === 0 || 
+            fields.course_id.fixedValues.length === 0 ||
+            fields.author_id.fixedValues.length === 0
+        ">
             <div class="p-16 bg-white h-48 overflow-hidden shadow-sm sm:rounded-lg">
-                <AlertWarning :message="translate('You must register at least one collection and/or one course')" />
+                <AlertWarning :message="translate('You must register at least one collection, course and author')" />
             </div>
         </template>
         <template v-else>

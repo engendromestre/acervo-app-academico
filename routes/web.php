@@ -65,6 +65,7 @@ Route::group([
     Route::resource('collection', 'CollectionController');
     Route::resource('course', 'CourseController');
     Route::resource('document', 'DocumentController');
+    Route::resource('author', 'AuthorController');
 });
 
 Route::get('/{id}', [WelcomeController::class, 'getVisit'])->name('welcome.getVisit');

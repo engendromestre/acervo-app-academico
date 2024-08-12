@@ -33,7 +33,7 @@ it('can create document', function () {
         'subtitle' => $faker->word,
         'collection_id' => Collection::factory()->create()->id,
         'course_id' => Course::factory()->create()->id,
-        'author' => $faker->name,
+        'author_id' => $faker->name,
         'advisor' => $faker->name,
         'file' => $file,
         'publicationYear' => $faker->year
@@ -60,7 +60,7 @@ it('can update document', function () {
         'subtitle' => $faker->word,
         'collection_id' => Collection::factory()->create()->id,
         'course_id' => Course::factory()->create()->id,
-        'author' => 'Updated Author Name',
+        'author_id' => 'Updated Author Name',
         'file' => 'document.pdf',
         'advisor' => $faker->name,
         'publicationYear' => $faker->year,
@@ -72,7 +72,7 @@ it('can update document', function () {
     $this->assertDatabaseHas('documents', [
         'id' => $document->id,
         'title' => 'Updated Document Title',
-        'author' => 'Updated Author Name',
+        'author_id' => 'Updated Author Name',
     ]);
 });
 
@@ -125,6 +125,8 @@ it('can list documents with filters and pagination', function () {
                 return count($datas["data"]) === 2;
             })
     );
+
+    
 });
 
 it('requires multiple fields to be present', function () {
@@ -132,7 +134,7 @@ it('requires multiple fields to be present', function () {
         'title' => '',
         'collection_id' => null,
         'course_id' => null,
-        'author' => '',
+        'author_id' => '',
         'advisor' => '',
         'file' => '',
         'publicationYear' => '',
@@ -145,7 +147,7 @@ it('requires multiple fields to be present', function () {
         'title',
         'collection_id',
         'course_id',
-        'author',
+        'author_id',
         'advisor',
         'file',
         'publicationYear',
@@ -166,7 +168,7 @@ it('requires multiples fields to have max length', function () {
         'subtitle' => $faker->word,
         'collection_id' => Collection::factory()->create()->id,
         'course_id' => Course::factory()->create()->id,
-        'author' => $faker->name,
+        'author_id' => $faker->name,
         'advisor' => $faker->name,
         'file' => $file,
         'publicationYear' => $faker->year
@@ -189,20 +191,14 @@ it('requires multiples fields to have max length', function () {
     $response->assertStatus(302);
     $response->assertSessionHasErrors('subtitle');
 
-    // Test Author field
     $data['subtitle'] = $faker->word;
-    $data['author'] = str_repeat('t',256);
-
 
     $response = $this->post(route('document.store'), $data);
 
     $response->assertStatus(302);
-    $response->assertSessionHasErrors('author');
 
      // Test Advisor field
-     $data['author'] =  $faker->name;
      $data['advisor'] = str_repeat('t',151);
- 
  
      $response = $this->post(route('document.store'), $data);
  

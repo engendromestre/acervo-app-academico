@@ -9,7 +9,7 @@ class Document extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'subtitle', 'collection_id', 'course_id', 'author', 'advisor','file','publicationYear'];
+    protected $fillable = ['title', 'subtitle', 'collection_id', 'course_id', 'author_id', 'advisor','file','publicationYear'];
 
     /**
      * Return Fields scrutcture for Forms and List Components
@@ -21,7 +21,7 @@ class Document extends Model
             'subtitle' => ['title' => 'Subtitle', 'dataType' => 'text', 'value' => '', 'create' => true, 'read' => true, 'update' => true, 'position' => '1'],
             'collection_id' => ['listTable' =>'collection','listField' => 'name','fixedValues' => [],'title' => 'Collection', 'dataType' => 'select', 'value' => '', 'create' => true, 'read' => true, 'update' => true, 'position' => '2'],
             'course_id' => ['listTable' =>'course', 'listField' => 'name','fixedValues' => [],'title' => 'Course', 'dataType' => 'select', 'value' => '', 'create' => true, 'read' => true, 'update' => true, 'position' => '3'],
-            'author' => ['title' => 'Author', 'dataType' => 'text', 'value' => '', 'create' => true, 'read' => true, 'update' => true, 'position' => '4'],
+            'author_id' => ['listTable' =>'author', 'listField' => 'name','fixedValues' => [],'title' => 'Author', 'dataType' => 'select', 'value' => '', 'create' => true, 'read' => true, 'update' => true, 'position' => '4'],
             'advisor' => ['title' => 'Advisor', 'dataType' => 'text', 'value' => '', 'create' => true, 'read' => true, 'update' => true, 'position' => '5'],
             'file' => ['title' => 'File', 'dataType' => 'file', 'value' => '', 'create' => true, 'read' => true, 'update' => true, 'position' => '6',
             'accept' => [ "PDF" => ['maxSizeMb' => 50,'type' => 'application/pdf' ] ] ],
@@ -51,7 +51,7 @@ class Document extends Model
             'subtitle' => ["max:150"],
             'collection_id' => ["required"],
             'course_id' => ["required"],
-            'author' => ["required", "max:255"],
+            'author_id' => ["required"],
             'advisor' => ["required", "max:150"],
             'file' => ["required", "mimes:pdf", "max:20000"],
             'publicationYear' => ["required","max:{$yearEnd}"]
@@ -66,5 +66,10 @@ class Document extends Model
     public function course()
     {
         return $this->belongsTo(Course::class);
+    }
+
+    public function author()
+    {
+        return $this->belongsTo(Author::class);
     }
 }
