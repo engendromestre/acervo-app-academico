@@ -26,7 +26,7 @@ class Document extends Model
             'file' => ['title' => 'File', 'dataType' => 'file', 'value' => '', 'create' => true, 'read' => true, 'update' => true, 'position' => '6',
             'accept' => [ "PDF" => ['maxSizeMb' => 50,'type' => 'application/pdf' ] ] ],
             'publicationYear' => ['title' => 'Publication Year', 'dataType' => 'number', 'value' => '', 'create' => true, 'read' => true, 'update' => true, 'position' => '7'],
-            'visits' => ['title' => 'Visits', 'dataType' => 'number','create' => false, 'read' => true, 'update' => false, 'position' => '8']
+            'document_visits_count' => ['title' => 'Visits', 'dataType' => 'number','create' => false, 'read' => true, 'update' => false, 'position' => '8']
         ];
     }
 
@@ -71,5 +71,10 @@ class Document extends Model
     public function author()
     {
         return $this->belongsTo(Author::class);
+    }
+
+    public function documentVisits()
+    {
+        return $this->hasMany(DocumentVisit::class);
     }
 }

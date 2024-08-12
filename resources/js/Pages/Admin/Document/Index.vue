@@ -42,6 +42,8 @@ const props = defineProps({
     }
 });
 
+console.log(props.data);
+
 const store = useStore();
 const HideModalState = () => {
     store.commit("hideModal");
@@ -120,8 +122,6 @@ const breadcrumbs = computed(() => {
         { label: "Documents" },
     ];
 });
-
-console.log(props.fields);
 </script>
 <template>
 

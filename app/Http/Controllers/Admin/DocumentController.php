@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use App\Models\Document;
+use App\Models\DocumentVisit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -32,7 +33,9 @@ class DocumentController extends Controller
         $documents->with('collection:id,name');
         $documents->with('course:id,name');
         $documents->with('author:id,name');
+        $documents->withCount('documentVisits');
         $documents->latest();
+
         $documents = $documents->when(
             $request->q,
             function ($query, $req) {
@@ -64,6 +67,7 @@ class DocumentController extends Controller
         $fields['collection_id']['fixedValues'] = DB::table('collections')->select('id', 'name')->get();
         $fields['course_id']['fixedValues'] = DB::table('courses')->select('id', 'name')->get();
         $fields['author_id']['fixedValues'] = DB::table('authors')->select('id', 'name')->get();
+        
         return Inertia::render('Admin/Document/Index', [
             'fields' => $fields,
             'data' => $documents,
