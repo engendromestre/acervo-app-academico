@@ -141,14 +141,14 @@ O workflow é acionado em três situações:
 1. Test
  - Executa em Ubuntu: Configura o PHP e MySQL, e realiza testes.
  - Etapas:
-   - Checkout do código.
-   - Configuração do PHP com extensões necessárias.
+   - Checkout do código
+   - Configuração do PHP com extensões necessárias
    - Verificação da conexão MySQL.
-   - Instalação das dependências do Composer se composer.json existir.
-   - Configuração do Laravel.
-   - Instalação e construção dos assets NPM.
-   - Criação e configuração de diretórios de cache.
-   - Execução de testes com Pest.
+   - Instalação das dependências do Composer se composer.json existir
+   - Configuração do Laravel
+   - Instalação e construção dos assets NPM
+   - Criação e configuração de diretórios de cache
+   - Execução de testes com Pest
 
 2. Deploy
  - Executa após os testes: Faz o deploy para o Azure Web App.
