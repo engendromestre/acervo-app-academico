@@ -31,6 +31,7 @@ class DocumentController extends Controller
         $documents = (new Document)->newQuery();
         $documents->with('collection:id,name');
         $documents->with('course:id,name');
+        $documents->with('author:id,name');
         $documents->latest();
         $documents = $documents->when(
             $request->q,
@@ -44,14 +45,15 @@ class DocumentController extends Controller
                         })
                         ->orWhereHas('course', function ( $query ) {
                             $query ->whereRaw("UPPER(name) LIKE ?", "%" . mb_strtoupper($this->request, 'UTF-8') . "%");
+                        })
+                        ->orWhereHas('author', function ( $query ) {
+                            $query ->whereRaw("UPPER(name) LIKE ?", "%" . mb_strtoupper($this->request, 'UTF-8') . "%");
                         });
                     })
                     ->orWhere(function ($subQuery) {
                         $subQuery
                             ->whereRaw("UPPER(title) LIKE ?", "%" . mb_strtoupper($this->request, 'UTF-8') . "%")
-                            ->orWhereRaw("UPPER(subtitle) LIKE ?", "%" . mb_strtoupper($this->request, 'UTF-8') . "%")
-                            ->orWhereRaw("UPPER(author) LIKE ?", "%" . mb_strtoupper($this->request, 'UTF-8') . "%")
-                            ->orWhereRaw("UPPER(advisor) LIKE ?", "%" . mb_strtoupper($this->request, 'UTF-8') . "%");
+                            ->orWhereRaw("UPPER(subtitle) LIKE ?", "%" . mb_strtoupper($this->request, 'UTF-8') . "%");
                     });
                 $this->request = null;
             }
@@ -61,6 +63,7 @@ class DocumentController extends Controller
         $fields = (new Document)->getFields();
         $fields['collection_id']['fixedValues'] = DB::table('collections')->select('id', 'name')->get();
         $fields['course_id']['fixedValues'] = DB::table('courses')->select('id', 'name')->get();
+        $fields['author_id']['fixedValues'] = DB::table('authors')->select('id', 'name')->get();
         return Inertia::render('Admin/Document/Index', [
             'fields' => $fields,
             'data' => $documents,
@@ -105,7 +108,7 @@ class DocumentController extends Controller
                 'subtitle' => $request->subtitle,
                 'collection_id' => $request->collection_id,
                 'course_id' => $request->course_id,
-                'author' => $request->author,
+                'author_id' => $request->author_id,
                 'advisor' =>   $request->advisor,
                 'file' => $fileUrl,
                 'publicationYear' => $request->publicationYear

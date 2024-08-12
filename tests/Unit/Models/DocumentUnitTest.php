@@ -15,7 +15,7 @@ test('test if use traits', function() {
 });
 
 test('test fillable attribute', function () {
-    $fillable = ['title', 'subtitle', 'collection_id', 'course_id', 'author', 'advisor','file','publicationYear'];
+    $fillable = ['title', 'subtitle', 'collection_id', 'course_id', 'author_id', 'advisor','file','publicationYear'];
     expect($fillable)->toBe($this->document->getFillable());
 });
 
