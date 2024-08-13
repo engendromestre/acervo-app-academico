@@ -27,22 +27,17 @@ class WelcomeController extends Controller
             $documents = ['msg' => 'Pesquise Algo'];
             $sql = '';
         } else {
-            // $documents = (new Document)->newQuery();
-            // $documents->with('collection:id,name');
-            // $documents->with('course:id,name');
-            // $documents->with('author:id,name');
-            // $documents->with('advisor:id,name');
-            // $documents->latest();
+            $documents = (new Document)->newQuery();
+            $documents->with('collection:id,name');
+            $documents->with('course:id,name');
+            $documents->with('author:id,name');
+            $documents->with('advisor:id,name');
+            $documents->latest();
 
-            $documents = Document::query()
-            ->join('advisors', 'documents.advisor_id', '=', 'advisor_id')
+            $documents = $documents
             ->join('authors', 'documents.author_id', '=', 'authors.id')
-            ->select('documents.*')
-            ->with('collection:id,name')
-            ->with('course:id,name')
-            ->with('author:id,name')
-            ->with('advisor:id,name')
-            ->latest();
+            ->join('advisors', 'documents.advisor_id', '=', 'advisors.id')
+            ->select('documents.*', 'authors.name as author_name', 'advisors.name as advisor_name');
 
             $documents = $documents->when(
                 $request->q,
