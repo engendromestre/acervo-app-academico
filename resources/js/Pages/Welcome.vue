@@ -45,7 +45,6 @@ const emit = defineEmits(['update:data']);
 const submit = () => {
   form.post(route('welcome'), {
     onSuccess: (res) => {
-      console.log(res.props);
       emit("update:data", res.props.data);
     }
   });
