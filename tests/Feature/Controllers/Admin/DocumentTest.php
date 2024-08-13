@@ -6,6 +6,8 @@ use Illuminate\Http\UploadedFile;
 use App\Models\User;
 use App\Models\Collection;
 use App\Models\Course;
+use App\Models\Author;
+use App\Models\Advisor;
 use App\Models\Document;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -33,8 +35,8 @@ it('can create document', function () {
         'subtitle' => $faker->word,
         'collection_id' => Collection::factory()->create()->id,
         'course_id' => Course::factory()->create()->id,
-        'author_id' => $faker->name,
-        'advisor' => $faker->name,
+        'author_id' => Author::factory()->create()->id,
+        'advisor_id' => Advisor::factory()->create()->id,
         'file' => $file,
         'publicationYear' => $faker->year
     ];
@@ -55,15 +57,21 @@ it('can update document', function () {
     // Crie uma permissão para testar a atualização
     $document = Document::factory()->create();
 
+    $subtitle = $faker->word;
+    $pubYear = $faker->year;
+    $collectionId = Collection::factory()->create()->id;
+    $courseId = Course::factory()->create()->id;
+    $authorId = Author::factory()->create()->id;
+    $advisorId = Advisor::factory()->create()->id;
     $updateData = [
         'title' => 'Updated Document Title',
-        'subtitle' => $faker->word,
-        'collection_id' => Collection::factory()->create()->id,
-        'course_id' => Course::factory()->create()->id,
-        'author_id' => 'Updated Author Name',
+        'subtitle' => $subtitle,
+        'collection_id' => $collectionId,
+        'course_id' => $courseId,
+        'author_id' => $authorId,
         'file' => 'document.pdf',
-        'advisor' => $faker->name,
-        'publicationYear' => $faker->year,
+        'advisor_id' => $advisorId,
+        'publicationYear' => $pubYear,
     ];
 
     $response = $this->put(route('document.update', $document), $updateData);
@@ -72,7 +80,13 @@ it('can update document', function () {
     $this->assertDatabaseHas('documents', [
         'id' => $document->id,
         'title' => 'Updated Document Title',
-        'author_id' => 'Updated Author Name',
+        'subtitle' => $subtitle,
+        'collection_id' => $collectionId,
+        'course_id' => $courseId,
+        'author_id' => $authorId,
+        'file' => 'document.pdf',
+        'advisor_id' => $advisorId,
+        'publicationYear' => $pubYear,
     ]);
 });
 
@@ -135,7 +149,7 @@ it('requires multiple fields to be present', function () {
         'collection_id' => null,
         'course_id' => null,
         'author_id' => '',
-        'advisor' => '',
+        'advisor_id' => '',
         'file' => '',
         'publicationYear' => '',
     ])->toArray();
@@ -148,7 +162,7 @@ it('requires multiple fields to be present', function () {
         'collection_id',
         'course_id',
         'author_id',
-        'advisor',
+        'advisor_id',
         'file',
         'publicationYear',
     ]);
@@ -168,8 +182,8 @@ it('requires multiples fields to have max length', function () {
         'subtitle' => $faker->word,
         'collection_id' => Collection::factory()->create()->id,
         'course_id' => Course::factory()->create()->id,
-        'author_id' => $faker->name,
-        'advisor' => $faker->name,
+        'author_id' => Author::factory()->create()->id,
+        'advisor_id' => Advisor::factory()->create()->id,
         'file' => $file,
         'publicationYear' => $faker->year
     ];
@@ -197,16 +211,7 @@ it('requires multiples fields to have max length', function () {
 
     $response->assertStatus(302);
 
-     // Test Advisor field
-     $data['advisor'] = str_repeat('t',151);
- 
-     $response = $this->post(route('document.store'), $data);
- 
-     $response->assertStatus(302);
-     $response->assertSessionHasErrors('advisor');
-
      // Test File field
-     $data['advisor'] =  $faker->name;
      $data['file'] = str_repeat('t',20001) .'.pdf';
  
      $response = $this->post(route('document.store'), $data);

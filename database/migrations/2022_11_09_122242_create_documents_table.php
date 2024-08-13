@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('subtitle')->nullable();
             $table->unsignedBigInteger('collection_id');
             $table->unsignedBigInteger('course_id');
-            $table->string('author_id');
-            $table->string('advisor');
+            $table->unsignedBigInteger('author_id');
+            $table->unsignedBigInteger('advisor_id');
             $table->year('publicationYear');
             $table->string('file');
             # $table->integer('visits')->nullable();
