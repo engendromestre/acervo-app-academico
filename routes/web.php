@@ -73,6 +73,15 @@ Route::get('/{id}', [WelcomeController::class, 'getVisit'])->name('welcome.getVi
 Route::post('/', [WelcomeController::class, 'list'])->name('welcome');
 Route::patch('/increment-document', [WelcomeController::class, 'visitsIncrement'])->name('welcome.visitsIncrement');
 
+Route::get('/coverage', function () {
+    $path = public_path('coverage/index.html');
+
+    if (!file_exists($path)) {
+        abort(404);
+    }
+
+    return Response::file($path);
+});
 
 // Route::get('/sendmailtest', function() {
 //     $user = User::where('email', env('APP_SUPERADMIN'))->first();
