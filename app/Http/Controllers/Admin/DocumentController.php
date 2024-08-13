@@ -33,6 +33,7 @@ class DocumentController extends Controller
         $documents->with('collection:id,name');
         $documents->with('course:id,name');
         $documents->with('author:id,name');
+        $documents->with('advisor:id,name');
         $documents->withCount('documentVisits');
         $documents->latest();
 
@@ -51,6 +52,9 @@ class DocumentController extends Controller
                         })
                         ->orWhereHas('author', function ( $query ) {
                             $query ->whereRaw("UPPER(name) LIKE ?", "%" . mb_strtoupper($this->request, 'UTF-8') . "%");
+                        })
+                        ->orWhereHas('advisor', function ( $query ) {
+                            $query ->whereRaw("UPPER(name) LIKE ?", "%" . mb_strtoupper($this->request, 'UTF-8') . "%");
                         });
                     })
                     ->orWhere(function ($subQuery) {
@@ -64,9 +68,10 @@ class DocumentController extends Controller
 
         $documents = $documents->paginate(8);
         $fields = (new Document)->getFields();
-        $fields['collection_id']['fixedValues'] = DB::table('collections')->select('id', 'name')->get();
-        $fields['course_id']['fixedValues'] = DB::table('courses')->select('id', 'name')->get();
-        $fields['author_id']['fixedValues'] = DB::table('authors')->select('id', 'name')->get();
+        $fields['collection_id']['fixedValues'] = DB::table('collections')->select('id', 'name')->orderBy('name', 'asc')->get();
+        $fields['course_id']['fixedValues'] = DB::table('courses')->select('id', 'name')->orderBy('name', 'asc')->get();
+        $fields['author_id']['fixedValues'] = DB::table('authors')->select('id', 'name')->orderBy('name', 'asc')->get();
+        $fields['advisor_id']['fixedValues'] = DB::table('advisors')->select('id', 'name')->orderBy('name', 'asc')->get();
         
         return Inertia::render('Admin/Document/Index', [
             'fields' => $fields,

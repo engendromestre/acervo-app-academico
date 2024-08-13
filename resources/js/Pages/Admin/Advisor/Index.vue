@@ -150,7 +150,7 @@ const breadcrumbs = computed(() => {
                     </template>
                     <template v-else>
                         <DialogTitle as="h3" class="mt-2 px-2 text-lg font-medium leading-6 text-gray-900 dark:text-white">
-                            {{ translate(store.getters.capitalizeAction) }} {{ translate('advisor') }}
+                            {{ translate(store.getters.capitalizeAction) }} {{ translate('Advisor') }}
                         </DialogTitle>
                     </template>
                 </div>
