@@ -30,6 +30,7 @@ class WelcomeController extends Controller
             $documents = (new Document)->newQuery();
             $documents->with('collection:id,name');
             $documents->with('course:id,name');
+            $documents->with('course:id,name');
             $documents->latest();
 
             $documents = $documents->when(
