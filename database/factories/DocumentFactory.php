@@ -5,6 +5,8 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Collection;
 use App\Models\Course;
+use App\Models\Author;
+use App\Models\Advisor;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Document>
@@ -23,8 +25,8 @@ class DocumentFactory extends Factory
             'subtitle' => $this->faker->sentence,
             'collection_id' => Collection::factory(),
             'course_id' => Course::factory(),
-            'author_id' => $this->faker->name,
-            'advisor_id' => $this->faker->name,
+            'author_id' => Author::factory(),
+            'advisor_id' => Advisor::factory(),
             'file' => 'test.pdf',
             'publicationYear' => $this->faker->year,
         ];
