@@ -42,8 +42,6 @@ const props = defineProps({
     }
 });
 
-console.log(props.data);
-
 const store = useStore();
 const HideModalState = () => {
     store.commit("hideModal");

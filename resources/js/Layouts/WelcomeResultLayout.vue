@@ -77,8 +77,8 @@ const count = ref(1);
                                 <p class="mt-3 text-xs text-gray-500 dark:text-gray-400 text-ellipsis overflow-hidden">
                                     {{ obj.collection.name }} -
                                     {{ obj.course.name }} -
-                                    {{ obj.advisor }} -
-                                    {{ obj.author }}
+                                    {{ obj.advisor.name }} -
+                                    {{ obj.author.name }}
                                 </p>
                                 <hr class="mt-3 h-px bg-gray-200 border-0 dark:bg-gray-700" />
                                 <div class="mt-3 flex space-x-4 float-right">

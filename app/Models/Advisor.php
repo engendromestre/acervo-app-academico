@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Author extends Model
+class Advisor extends Model
 {
     use HasFactory;
 
     protected $fillable = ['name'];
 
-    /**
+     /**
      * Return Fields scrutcture for Forms and List Components
      */
     public function getFields()
@@ -31,13 +31,5 @@ class Author extends Model
             'name' => ["required","max:255"],
             'bio' => ["max:255"]
         ];
-    }
-
-    /**
-     * Defines the relationship with the Document model
-     */
-    public function documents()
-    {
-        return $this->hasMany(Document::class, 'author_id');
     }
 }

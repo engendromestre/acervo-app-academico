@@ -30,7 +30,14 @@ class WelcomeController extends Controller
             $documents = (new Document)->newQuery();
             $documents->with('collection:id,name');
             $documents->with('course:id,name');
+            $documents->with('author:id,name');
+            $documents->with('advisor:id,name');
             $documents->latest();
+
+            $documents = $documents
+            ->join('authors', 'documents.author_id', '=', 'authors.id')
+            ->join('advisors', 'documents.advisor_id', '=', 'advisors.id')
+            ->select('documents.*', 'authors.name as author_name', 'advisors.name as advisor_name');
 
             $documents = $documents->when(
                 $request->q,
@@ -40,8 +47,8 @@ class WelcomeController extends Controller
                         $queryInternal
                             ->whereRaw("UPPER(title) LIKE ?", "%" . mb_strtoupper($this->request, 'UTF-8') . "%")
                             ->orWhereRaw("UPPER(subtitle) LIKE ?", "%" . mb_strtoupper($this->request, 'UTF-8') . "%")
-                            ->orWhereRaw("UPPER(author) LIKE ?", "%" . mb_strtoupper($this->request, 'UTF-8') . "%")
-                            ->orWhereRaw("UPPER(advisor) LIKE ?", "%" . mb_strtoupper($this->request, 'UTF-8') . "%");
+                            ->orWhereRaw("UPPER(authors.name) LIKE ?", "%" . mb_strtoupper($this->request, 'UTF-8') . "%")
+                            ->orWhereRaw("UPPER(advisors.name) LIKE ?", "%" . mb_strtoupper($this->request, 'UTF-8') . "%");
                     });
                     $this->request = null;
                 }

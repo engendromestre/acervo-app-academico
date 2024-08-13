@@ -9,7 +9,7 @@ class Document extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'subtitle', 'collection_id', 'course_id', 'author_id', 'advisor','file','publicationYear'];
+    protected $fillable = ['title', 'subtitle', 'collection_id', 'course_id', 'author_id', 'advisor_id','file','publicationYear'];
 
     /**
      * Return Fields scrutcture for Forms and List Components
@@ -22,7 +22,7 @@ class Document extends Model
             'collection_id' => ['listTable' =>'collection','listField' => 'name','fixedValues' => [],'title' => 'Collection', 'dataType' => 'select', 'value' => '', 'create' => true, 'read' => true, 'update' => true, 'position' => '2'],
             'course_id' => ['listTable' =>'course', 'listField' => 'name','fixedValues' => [],'title' => 'Course', 'dataType' => 'select', 'value' => '', 'create' => true, 'read' => true, 'update' => true, 'position' => '3'],
             'author_id' => ['listTable' =>'author', 'listField' => 'name','fixedValues' => [],'title' => 'Author', 'dataType' => 'select', 'value' => '', 'create' => true, 'read' => true, 'update' => true, 'position' => '4'],
-            'advisor' => ['title' => 'Advisor', 'dataType' => 'text', 'value' => '', 'create' => true, 'read' => true, 'update' => true, 'position' => '5'],
+            'advisor_id' => ['listTable' =>'advisor', 'listField' => 'name','fixedValues' => [],'title' => 'Advisor', 'dataType' => 'select', 'value' => '', 'create' => true, 'read' => true, 'update' => true, 'position' => '5'],
             'file' => ['title' => 'File', 'dataType' => 'file', 'value' => '', 'create' => true, 'read' => true, 'update' => true, 'position' => '6',
             'accept' => [ "PDF" => ['maxSizeMb' => 50,'type' => 'application/pdf' ] ] ],
             'publicationYear' => ['title' => 'Publication Year', 'dataType' => 'number', 'value' => '', 'create' => true, 'read' => true, 'update' => true, 'position' => '7'],
@@ -52,7 +52,7 @@ class Document extends Model
             'collection_id' => ["required"],
             'course_id' => ["required"],
             'author_id' => ["required"],
-            'advisor' => ["required", "max:150"],
+            'advisor_id' => ["required"],
             'file' => ["required", "mimes:pdf", "max:20000"],
             'publicationYear' => ["required","max:{$yearEnd}"]
         ];
@@ -71,6 +71,11 @@ class Document extends Model
     public function author()
     {
         return $this->belongsTo(Author::class);
+    }
+
+    public function advisor()
+    {
+        return $this->belongsTo(Advisor::class);
     }
 
     public function documentVisits()

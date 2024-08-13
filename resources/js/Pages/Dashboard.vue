@@ -45,6 +45,11 @@ const menus = [
         'label': 'Register Author'
     },
     {
+        'href': 'advisor.index',
+        'svg_d': 'M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18',
+        'label': 'Register Advisor'
+    },
+    {
         'href': 'document.index',
         'svg_d': 'M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z',
         'label': 'Register Document'
@@ -62,7 +67,7 @@ const clearURLQueryString = () => {
 
     <AuthenticatedLayout :lang="lang" :breadcrumbs="breadcrumbs">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <h2 class="font-semibold text-lg text-gray-800 leading-tight">
                 {{ translate('Dashboard') }}
             </h2>
         </template>
@@ -80,7 +85,7 @@ const clearURLQueryString = () => {
                                 stroke="currentColor" class="mx-auto mt-8 h-16 w-16">
                                 <path stroke-linecap="round" stroke-linejoin="round" :d="menu.svg_d" />
                             </svg>
-                            <h1 class="px-1 my-8 mt-2 text-center text-2xl font-bold text-gray-500 dark:text-gray-500">
+                            <h1 class="px-1 my-8 mt-2 text-center text-xl font-bold text-gray-500 dark:text-gray-500">
                                 {{ translate(menu.label) }}
                             </h1>
                             </Link>
