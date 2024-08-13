@@ -32,4 +32,12 @@ class Author extends Model
             'bio' => ["max:255"]
         ];
     }
+
+    /**
+     * Defines the relationship with the Document model
+     */
+    public function documents()
+    {
+        return $this->hasMany(Document::class, 'author_id');
+    }
 }
