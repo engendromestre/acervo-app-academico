@@ -118,7 +118,7 @@ class DocumentController extends Controller
                 'collection_id' => $request->collection_id,
                 'course_id' => $request->course_id,
                 'author_id' => $request->author_id,
-                'advisor' =>   $request->advisor,
+                'advisor_id' =>   $request->advisor_id,
                 'file' => $fileUrl,
                 'publicationYear' => $request->publicationYear
             ]);

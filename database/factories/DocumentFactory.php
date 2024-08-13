@@ -24,7 +24,7 @@ class DocumentFactory extends Factory
             'collection_id' => Collection::factory(),
             'course_id' => Course::factory(),
             'author_id' => $this->faker->name,
-            'advisor' => $this->faker->name,
+            'advisor_id' => $this->faker->name,
             'file' => 'test.pdf',
             'publicationYear' => $this->faker->year,
         ];

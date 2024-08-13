@@ -9,7 +9,7 @@ class Document extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'subtitle', 'collection_id', 'course_id', 'author_id', 'advisor','file','publicationYear'];
+    protected $fillable = ['title', 'subtitle', 'collection_id', 'course_id', 'author_id', 'advisor_id','file','publicationYear'];
 
     /**
      * Return Fields scrutcture for Forms and List Components
@@ -52,7 +52,7 @@ class Document extends Model
             'collection_id' => ["required"],
             'course_id' => ["required"],
             'author_id' => ["required"],
-            'advisor' => ["required", "max:150"],
+            'advisor_id' => ["required"],
             'file' => ["required", "mimes:pdf", "max:20000"],
             'publicationYear' => ["required","max:{$yearEnd}"]
         ];
